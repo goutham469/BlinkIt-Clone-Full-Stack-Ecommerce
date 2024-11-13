@@ -1,4 +1,5 @@
-export const baseURL = "http://localhost:8080"
+// export const baseURL = process.env.REACT_APP_SERVER_URL
+export const baseURL = import.meta.env.VITE_SERVER_URL;
 
 const SummaryApi = {
     register : {
@@ -152,6 +153,14 @@ const SummaryApi = {
     getOrderItems : {
         url : '/api/order/order-list',
         method : 'get'
+    },
+    rzp_initiate:{
+        url:'api/order/create-order',
+        method: 'post'
+    },
+    rzp_verify:{
+        url :'api/order/verify-payment',
+        method:'post'   
     }
 }
 

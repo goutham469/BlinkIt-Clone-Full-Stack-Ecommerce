@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import SummaryApi from '../common/SummaryApi'
 import Axios from '../utils/Axios'
 import AxiosToastError from '../utils/AxiosToastError'
-import { FaAngleRight,FaAngleLeft } from "react-icons/fa6";
+import { FaAngleRight,FaAngleLeft, FaPlay } from "react-icons/fa6";
 import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees'
 import Divider from '../components/Divider'
 import image1 from '../assets/minute_delivery.png'
@@ -12,7 +12,7 @@ import image3 from '../assets/Wide_Assortment.png'
 import { pricewithDiscount } from '../utils/PriceWithDiscount'
 import AddToCartButton from '../components/AddToCartButton'
 
-const ProductDisplayPage = () => {
+const ProductDisplayPage = () => { 
   const params = useParams()
   let productId = params?.product?.split("-")?.slice(-1)[0]
   const [data,setData] = useState({
@@ -58,12 +58,45 @@ const ProductDisplayPage = () => {
   return (
     <section className='container mx-auto p-4 grid lg:grid-cols-2 '>
         <div className=''>
+
             <div className='bg-white lg:min-h-[65vh] lg:max-h-[65vh] rounded min-h-56 max-h-56 h-full w-full'>
-                <img
-                    src={data.image[image]}
-                    className='w-full h-full object-scale-down'
-                /> 
+               <div className='bg-white lg:min-h-[65vh] lg:max-h-[65vh] rounded min-h-56 max-h-56 h-full w-full relative'>
+  <img
+      src={data.image[image]}
+      className='w-full h-full object-scale-down'
+      alt="content"
+  />
+  {image === -1 && (
+    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center overflow-hidden rounded-lg shadow-lg">
+      {data.more_details.embedVideo ? (
+        <div
+          dangerouslySetInnerHTML={{ __html: data.more_details.embedVideo }}
+          className="w-full h-full"
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%",
+            borderRadius: "8px",
+            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+          }}
+        />
+      ) : (
+        <iframe
+          className="w-full h-full rounded-lg shadow-lg"
+          src="https://www.youtube.com/embed/qyCVCGg_3Ec"
+          title="Embedded Video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+      )}
+    </div>
+  )}
+</div>
+
             </div>
+
+
             <div className='flex items-center justify-center gap-3 my-2'>
               {
                 data.image.map((img,index)=>{
@@ -71,8 +104,16 @@ const ProductDisplayPage = () => {
                     <div key={img+index+"point"} className={`bg-slate-200 w-3 h-3 lg:w-5 lg:h-5 rounded-full ${index === image && "bg-slate-300"}`}></div>
                   )
                 })
+                
               }
+              
+              
+
             </div>
+
+
+
+
             <div className='grid relative'>
                 <div ref={imageContainer} className='flex gap-4 z-10 relative w-full overflow-x-auto scrollbar-none'>
                       {
@@ -89,6 +130,16 @@ const ProductDisplayPage = () => {
                           )
                         })
                       }
+                      {
+  data.image && (
+    <div 
+      onClick={() => setImage(-1)} 
+      style={{marginTop:"20px"}}
+    >
+      <button  className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>Play Video</button>
+    </div>
+  )
+}
                 </div>
                 <div className='w-full -ml-3 h-full hidden lg:flex justify-between absolute  items-center'>
                     <button onClick={handleScrollLeft} className='z-10 bg-white relative p-1 rounded-full shadow-lg'>
@@ -107,12 +158,12 @@ const ProductDisplayPage = () => {
                     <p className='font-semibold'>Description</p>
                     <p className='text-base'>{data.description}</p>
                 </div>
-                <div>
+                {/* <div>
                     <p className='font-semibold'>Unit</p>
                     <p className='text-base'>{data.unit}</p>
-                </div>
-                {
-                  data?.more_details && Object.keys(data?.more_details).map((element,index)=>{
+                </div> */}
+                {/* {
+                  data?.more_details && Object.keys(data?.more_details).filter((element)=>element!='driveLink').map((element,index)=>{
                     return(
                       <div>
                           <p className='font-semibold'>{element}</p>
@@ -120,15 +171,15 @@ const ProductDisplayPage = () => {
                       </div>
                     )
                   })
-                }
+                } */}
             </div>
         </div>
 
 
         <div className='p-4 lg:pl-7 text-base lg:text-lg'>
-            <p className='bg-green-300 w-fit px-2 rounded-full'>10 Min</p>
+            <p className='bg-green-300 w-fit px-2 rounded-full'>Video length 10min</p>
             <h2 className='text-lg font-semibold lg:text-3xl'>{data.name}</h2>  
-            <p className=''>{data.unit}</p> 
+            {/* <p className=''>{data.unit}</p>  */}
             <Divider/>
             <div>
               <p className=''>Price</p> 
@@ -150,8 +201,33 @@ const ProductDisplayPage = () => {
               </div>
 
             </div> 
+            <br/>
+
+
+            {
+              data.price == 0?<button 
+                                    onClick={(e) => {
+                                      e.preventDefault()
+                                      window.open(data.more_details.driveLink) 
+                                    }  }
+                                    className="bg-green-600 hover:bg-green-700 text-white text-xs font-medium px-3 py-1.5 rounded shadow-sm transition duration-200 ease-in-out"
+                                  >
+                                Download Now
+                              </button>
+                              :
+                <div className=''>
+                  {
+                    data.stock == 0 ? (
+                      <p className='text-red-500 text-sm text-center'>Out of stock</p>
+                    ) : (
+                      <AddToCartButton data={data} />
+                    )
+                  }
+                    
+                </div>
+            }
               
-              {
+              {/* {
                 data.stock === 0 ? (
                   <p className='text-lg text-red-500 my-2'>Out of Stock</p>
                 ) 
@@ -161,7 +237,7 @@ const ProductDisplayPage = () => {
                     <AddToCartButton data={data}/>
                   </div>
                 )
-              }
+              } */}
            
 
             <h2 className='font-semibold'>Why shop from binkeyit? </h2>
@@ -199,28 +275,6 @@ const ProductDisplayPage = () => {
                         <p>Choose from 5000+ products across food personal care, household & other categories.</p>
                       </div>
                   </div>
-            </div>
-
-            {/****only mobile */}
-            <div className='my-4 grid gap-3 '>
-                <div>
-                    <p className='font-semibold'>Description</p>
-                    <p className='text-base'>{data.description}</p>
-                </div>
-                <div>
-                    <p className='font-semibold'>Unit</p>
-                    <p className='text-base'>{data.unit}</p>
-                </div>
-                {
-                  data?.more_details && Object.keys(data?.more_details).map((element,index)=>{
-                    return(
-                      <div>
-                          <p className='font-semibold'>{element}</p>
-                          <p className='text-base'>{data?.more_details[element]}</p>
-                      </div>
-                    )
-                  })
-                }
             </div>
         </div>
     </section>

@@ -38,10 +38,10 @@ const CardProduct = ({data}) => {
       <div className='px-2 lg:px-0 font-medium text-ellipsis text-sm lg:text-base line-clamp-2'>
         {data.name}
       </div>
-      <div className='w-fit gap-1 px-2 lg:px-0 text-sm lg:text-base'>
+      {/* <div className='w-fit gap-1 px-2 lg:px-0 text-sm lg:text-base'>
         {data.unit} 
         
-      </div>
+      </div> */}
 
       <div className='px-2 lg:px-0 flex items-center justify-between gap-1 lg:gap-3 text-sm lg:text-base'>
         <div className='flex items-center gap-1'>
@@ -51,16 +51,30 @@ const CardProduct = ({data}) => {
           
           
         </div>
-        <div className=''>
-          {
-            data.stock == 0 ? (
-              <p className='text-red-500 text-sm text-center'>Out of stock</p>
-            ) : (
-              <AddToCartButton data={data} />
-            )
-          }
-            
-        </div>
+        
+        
+        {
+          data.price == 0?<button 
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  window.open(data.more_details.driveLink) 
+                                }  }
+                                className="bg-green-600 hover:bg-green-700 text-white text-xs font-medium px-3 py-1.5 rounded shadow-sm transition duration-200 ease-in-out"
+                              >
+                            Download Now
+                          </button>
+                          :
+            <div className=''>
+              {
+                data.stock == 0 ? (
+                  <p className='text-red-500 text-sm text-center'>Out of stock</p>
+                ) : (
+                  <AddToCartButton data={data} />
+                )
+              }
+                
+            </div>
+        }
       </div>
 
     </Link>

@@ -8,7 +8,7 @@ import Axios from '../utils/Axios'
 import SummaryApi from '../common/SummaryApi'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import { loadStripe } from '@stripe/stripe-js'
+import RazorpayPaymentButton from '../components/RazorpayPaymentButton '
 
 const CheckoutPage = () => {
   const { notDiscountTotalPrice, totalPrice, totalQty, fetchCartItem,fetchOrder } = useGlobalContext()
@@ -20,8 +20,10 @@ const CheckoutPage = () => {
 
   const handleCashOnDelivery = async() => {
       try {
+        console.log(cartItemsList)
+
           const response = await Axios({
-            ...SummaryApi.CashOnDeliveryOrder,
+            ...SummaryApi.CashOnDeliveryOrder, 
             data : {
               list_items : cartItemsList,
               addressId : addressList[selectAddress]?._id,
@@ -52,42 +54,14 @@ const CheckoutPage = () => {
       }
   }
 
-  const handleOnlinePayment = async()=>{
-    try {
-        toast.loading("Loading...")
-        const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY
-        const stripePromise = await loadStripe(stripePublicKey)
-       
-        const response = await Axios({
-            ...SummaryApi.payment_url,
-            data : {
-              list_items : cartItemsList,
-              addressId : addressList[selectAddress]?._id,
-              subTotalAmt : totalPrice,
-              totalAmt :  totalPrice,
-            }
-        })
+  const [formData , setFormData] = useState({})
 
-        const { data : responseData } = response
-
-        stripePromise.redirectToCheckout({ sessionId : responseData.id })
-        
-        if(fetchCartItem){
-          fetchCartItem()
-        }
-        if(fetchOrder){
-          fetchOrder()
-        }
-    } catch (error) {
-        AxiosToastError(error)
-    }
-  }
   return (
     <section className='bg-blue-50'>
       <div className='container mx-auto p-4 flex flex-col lg:flex-row w-full gap-5 justify-between'>
         <div className='w-full'>
           {/***address***/}
-          <h3 className='text-lg font-semibold'>Choose your address</h3>
+          {/* <h3 className='text-lg font-semibold'>Choose your address</h3>
           <div className='bg-white p-2 grid gap-4'>
             {
               addressList.map((address, index) => {
@@ -112,11 +86,11 @@ const CheckoutPage = () => {
             <div onClick={() => setOpenAddress(true)} className='h-16 bg-blue-50 border-2 border-dashed flex justify-center items-center cursor-pointer'>
               Add address
             </div>
-          </div>
+          </div> */}
 
 
 
-        </div>
+        </div> 
 
         <div className='w-full max-w-md bg-white py-4 px-2'>
           {/**summary**/}
@@ -141,9 +115,63 @@ const CheckoutPage = () => {
             </div>
           </div>
           <div className='w-full flex flex-col gap-4'>
-            <button className='py-2 px-4 bg-green-600 hover:bg-green-700 rounded text-white font-semibold' onClick={handleOnlinePayment}>Online Payment</button>
 
-            <button className='py-2 px-4 border-2 border-green-600 font-semibold text-green-600 hover:bg-green-600 hover:text-white' onClick={handleCashOnDelivery}>Cash on Delivery</button>
+
+
+            {
+              formData&&formData.email&&formData.phone&&formData.submit?
+              <RazorpayPaymentButton  
+                  list_items={cartItemsList}
+                  addressId={addressList[selectAddress]?._id}
+                  subTotalAmt={totalPrice}
+                  totalAmt={totalPrice}
+                  userDetails={formData}
+              />
+              :
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setFormData((prevData) => ({ ...prevData, submit: true }));
+                }}
+                className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
+              >
+                <label className="block text-gray-700 text-sm font-medium mb-2">Enter your email ID</label>
+                <input
+                  type="email"
+                  required
+                  onChange={(e) =>
+                    setFormData((prevData) => ({ ...prevData, email: e.target.value }))
+                  }
+                  className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <label className="block text-gray-700 text-sm font-medium mb-2">Enter your mobile number</label>
+                <input
+                  type="number"
+                  required
+                  onChange={(e) =>
+                    setFormData((prevData) => ({ ...prevData, phone: e.target.value }))
+                  }
+                  className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setFormData((prevData) => ({ ...prevData, submit: true }));
+                  }}
+                  className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200"
+                >
+                  Submit
+                </button>
+              </form>
+
+            }
+
+          
+
+
+            {/* <button className='py-2 px-4 border-2 border-green-600 font-semibold text-green-600 hover:bg-green-600 hover:text-white' onClick={handleCashOnDelivery}>Cash on Delivery</button> */}
           </div>
         </div>
       </div>

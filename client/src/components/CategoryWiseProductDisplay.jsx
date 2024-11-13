@@ -68,7 +68,7 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
   }
 
   const redirectURL =  handleRedirectProductListpage()
-    return (
+    return ( 
         <div>
             <div className='container mx-auto p-4 flex items-center justify-between gap-4'>
                 <h3 className='font-semibold text-lg md:text-xl'>{name}</h3>
@@ -76,12 +76,13 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
             </div>
             <div className='relative flex items-center '>
                 <div className=' flex gap-4 md:gap-6 lg:gap-8 container mx-auto px-4 overflow-x-scroll scrollbar-none scroll-smooth' ref={containerRef}>
-                    {loading &&
+                    {
+                    loading &&
                         loadingCardNumber.map((_, index) => {
                             return (
                                 <CardLoading key={"CategorywiseProductDisplay123" + index} />
                             )
-                        })
+                        }) 
                     }
 
 

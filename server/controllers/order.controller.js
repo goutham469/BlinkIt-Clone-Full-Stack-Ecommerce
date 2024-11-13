@@ -3,8 +3,10 @@ import CartProductModel from "../models/cartproduct.model.js";
 import OrderModel from "../models/order.model.js";
 import UserModel from "../models/user.model.js";
 import mongoose from "mongoose";
+import Razorpay from "razorpay";
 
  export async function CashOnDeliveryOrderController(request,response){
+
     try {
         const userId = request.userId // auth middleware 
         const { list_items, totalAmt, addressId,subTotalAmt } = request.body 
@@ -16,7 +18,8 @@ import mongoose from "mongoose";
                 productId : el.productId._id, 
                 product_details : {
                     name : el.productId.name,
-                    image : el.productId.image
+                    image : el.productId.image,
+                    more_details : el.productId.more_details
                 } ,
                 paymentId : "",
                 payment_status : "CASH ON DELIVERY",
@@ -48,6 +51,115 @@ import mongoose from "mongoose";
     }
 }
 
+
+
+// Razorpay Instance
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+});
+
+// Create an order with Razorpay and store in the database
+export async function OnlinePaymentOrderController(req, res) {
+
+    console.log("new payment came : ")
+    console.log(req.body)
+  try {
+    const userId = req.userId; // authenticated user ID
+    const { list_items, totalAmt, addressId, subTotalAmt } = req.body;
+
+    console.log("userId created by auth middleware : ",userId)
+
+    // Create a Razorpay order
+    const razorpayOrder = await razorpay.orders.create({
+      amount: totalAmt * 100, // amount in smallest currency unit (paisa)
+      currency: "INR",
+      receipt: `receipt_order_${new mongoose.Types.ObjectId()}`,
+      notes: {
+        userId: userId,
+      },
+    });
+
+    // Prepare payload for MongoDB
+    const payload = list_items.map((el) => ({
+      userId: userId,
+      orderId: razorpayOrder.id,
+      productId: el.productId._id,
+      product_details: {
+        name: el.productId.name,
+        image: el.productId.image,
+        more_details: el.productId.more_details
+      },
+      paymentId: "", // Will update after successful payment
+      payment_status: "PENDING",
+      delivery_address: addressId,
+      subTotalAmt: subTotalAmt,
+      totalAmt: totalAmt,
+    }));
+
+    console.log("payload to insert into DB : ",)
+
+    const generatedOrder = await OrderModel.insertMany(payload);
+
+    ///remove from the cart
+    const removeCartItems = await CartProductModel.deleteMany({ userId : userId })
+    const updateInUser = await UserModel.updateOne({ _id : userId }, { shopping_cart : []})
+
+    return res.json({
+      message: "Order initiated",
+      error: false,
+      success: true,
+      orderId: razorpayOrder.id, // Send this to frontend
+      data: generatedOrder
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false
+    });
+  }
+}
+
+// Verify Razorpay payment and update order
+export async function VerifyPaymentController(req, res) {
+  try {
+    console.log("new payment verification came : ",req.body)
+
+    const { razorpay_payment_id, orderId, razorpay_signature } = req.body;
+
+    // Validate signature (additional code for signature validation required here)
+
+    // Update order details in DB upon successful payment
+    const updatedOrder = await OrderModel.updateMany(
+      { orderId: orderId },
+      {
+        paymentId: orderId,
+        payment_status: "PAID"
+      }
+    );
+
+    return res.json({
+      message: "Payment successful",
+      error: false,
+      success: true,
+      data: updatedOrder
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false
+    });
+  }
+}
+
+
+
+
+
+
+
 export const pricewithDiscount = (price,dis = 1)=>{
     const discountAmout = Math.ceil((Number(price) * Number(dis)) / 100)
     const actualPrice = Number(price) - Number(discountAmout)
@@ -68,9 +180,11 @@ export async function paymentController(request,response){
                     product_data : {
                         name : item.productId.name,
                         images : item.productId.image,
+                        more_details : item.productId.more_details,
                         metadata : {
                             productId : item.productId._id
-                        }
+                        },
+
                     },
                     unit_amount : pricewithDiscount(item.productId.price,item.productId.discount) * 100   
                },
@@ -130,7 +244,8 @@ const getOrderProductItems = async({
                 productId : product.metadata.productId, 
                 product_details : {
                     name : product.name,
-                    image : product.images
+                    image : product.images,
+
                 } ,
                 paymentId : paymentId,
                 payment_status : payment_status,

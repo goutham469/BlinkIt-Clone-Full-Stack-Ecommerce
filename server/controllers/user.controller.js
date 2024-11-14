@@ -520,3 +520,25 @@ export async function userDetails(request,response){
         })
     }
 }
+
+//get all users details
+export async function allUserDetails(request,response){
+    try {
+
+        const users = await UserModel.find()
+
+        return response.json({
+            message : 'user details',
+            data : users,
+            error : false,
+            success : true
+        })
+    } catch (error) {
+        return response.status(500).json({
+            message : "Something is wrong",
+            error : true,
+            success : false
+        })
+    }
+}
+

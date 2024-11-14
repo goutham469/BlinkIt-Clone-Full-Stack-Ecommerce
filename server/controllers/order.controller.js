@@ -322,3 +322,45 @@ export async function getOrderDetailsController(request,response){
         })
     }
 }
+
+export async function getAllOrdersController(request,response){
+  try {
+
+      const orderlist = await OrderModel.find().sort({ createdAt : -1 })
+
+      return response.json({
+          message : "orders list",
+          data : orderlist,
+          error : false,
+          success : true
+      })
+  } catch (error) {
+      return response.status(500).json({
+          message : error.message || error,
+          error : true,
+          success : false
+      })
+  }
+}
+
+export async function deleteOrdersController(request,response){
+  try {
+
+      const orderlist = await OrderModel.deleteMany({paymentId : request.body.paymentId})
+      console.log("an order deleted ","paymentId = ",request.body.paymentId,"status : ",orderlist)
+
+      return response.json({
+          message : "deleted",
+          data : orderlist,
+          error : false,
+          success : true
+      })
+  } catch (error) {
+      return response.status(500).json({
+          message : error.message || error,
+          error : true,
+          success : false
+      })
+  }
+}
+

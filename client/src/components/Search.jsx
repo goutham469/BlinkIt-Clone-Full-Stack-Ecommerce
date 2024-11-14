@@ -53,23 +53,13 @@ const Search = () => {
                         <TypeAnimation
                                 sequence={[
                                     // Same substring at the start will only be typed out once, initially
-                                    'Search "milk"',
+                                    'Search for "Designs"',
                                     1000, // wait 1s before replacing "Mice" with "Hamsters"
-                                    'Search "bread"',
+                                    'Search for "Templates"',
                                     1000,
-                                    'Search "sugar"',
+                                    'Search for "Effects"',
                                     1000,
-                                    'Search "panner"',
-                                    1000,
-                                    'Search "chocolate"',
-                                    1000,
-                                    'Search "curd"',
-                                    1000,
-                                    'Search "rice"',
-                                    1000,
-                                    'Search "egg"',
-                                    1000,
-                                    'Search "chips"',
+                                    'Search for "Thumbnails"'
                                 ]}
                                 wrapper="span"
                                 speed={50}
@@ -81,11 +71,15 @@ const Search = () => {
                     <div className='w-full h-full'>
                         <input
                             type='text'
-                            placeholder='Search for atta dal and more.'
+                            placeholder='Search for Designs,Templates and more.'
                             autoFocus
                             defaultValue={searchText}
                             className='bg-transparent w-full h-full outline-none'
-                            onChange={handleOnChange}
+
+
+                            // onChange={handleOnChange}
+
+
                         />
                     </div>
                 )

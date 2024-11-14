@@ -11,13 +11,17 @@ function Version() {
         {
             version:'1.4',
             data:['admin dashboard changes' , 'all users tab added' , 'all payments tab added' , 'profile dropdown changed as per new need']
+        },
+        {
+            version:'1.5',
+            data:['search bar place holder and animations changed, functionality disabled' , 'CATEGORIES icons changes']
         }
     ]
     const user = useSelector((state)=> state.user)
 
     const cur_version = {
-                            version:'1.4',
-                            data:['admin dashboard changes' , 'all users tab added' , 'all payments tab added' , 'profile dropdown changed as per new need']
+                            version:'1.5',
+                            data:['search bar place holder and animations changed, functionality disabled' , 'CATEGORIES icons changes']
                         }
 
     console.log(versions)

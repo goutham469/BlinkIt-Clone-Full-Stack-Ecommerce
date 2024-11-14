@@ -45,33 +45,38 @@ const Home = () => {
           </div>
       </div>
       
-      <div className='container mx-auto px-4 my-2 grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10  gap-2'>
-          {
-            loadingCategory ? (
-              new Array(12).fill(null).map((c,index)=>{
-                return(
-                  <div key={index+"loadingcategory"} className='bg-white rounded p-4 min-h-36 grid gap-2 shadow animate-pulse'>
-                    <div className='bg-blue-100 min-h-24 rounded'></div>
-                    <div className='bg-blue-100 h-8 rounded'></div>
-                  </div>
-                )
-              })
-            ) : (
-              categoryData.map((cat,index)=>{
-                return(
-                  <div key={cat._id+"displayCategory"} className='w-full h-full m-2 p-3' onClick={()=>handleRedirectProductListpage(cat._id,cat.name)}>
-                    <div>
-                        <img 
-                          src={cat.image}
-                          className='w-full h-full object-scale-down'
-                        />
+      <div>
+        <h3 className='font-semibold text-lg md:text-xl mx-5' >CATEGORIE'S</h3>
+        
+        <div className='container mx-auto px-4  grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10  gap-2'>
+            {
+              loadingCategory ? (
+                new Array(12).fill(null).map((c,index)=>{
+                  return(
+                    <div key={index+"loadingcategory"} className='bg-white rounded p-4 min-h-36 grid gap-2 shadow animate-pulse'>
+                      <div className='bg-blue-100 min-h-24 rounded'></div>
+                      <div className='bg-blue-100 h-8 rounded'></div>
                     </div>
-                  </div>
-                )
-              })
-              
-            )
-          }
+                  )
+                })
+              ) : (
+                categoryData.map((cat,index)=>{
+                  return(
+                    <div key={cat._id+"displayCategory"} className='w-full h-full p-1' onClick={()=>handleRedirectProductListpage(cat._id,cat.name)}>
+                      <div style={{margin:"0px",padding:"0px"}}>
+                          <img 
+                            src={cat.image}
+                            className='w-4/6 object-scale-down'
+                          />
+                          {/* <label>{cat.name}</label> */}
+                      </div>
+                    </div>
+                  )
+                })
+                
+              )
+            }
+        </div>
       </div>
 
       {/***display category product */}

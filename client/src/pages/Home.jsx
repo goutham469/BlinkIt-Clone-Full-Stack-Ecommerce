@@ -59,7 +59,7 @@ const Home = () => {
             ) : (
               categoryData.map((cat,index)=>{
                 return(
-                  <div key={cat._id+"displayCategory"} className='w-full h-full' onClick={()=>handleRedirectProductListpage(cat._id,cat.name)}>
+                  <div key={cat._id+"displayCategory"} className='w-full h-full m-2 p-3' onClick={()=>handleRedirectProductListpage(cat._id,cat.name)}>
                     <div>
                         <img 
                           src={cat.image}

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Axios from "../utils/Axios";
-import SummaryApi from "../common/SummaryApi";
+import SummaryApi, { baseURL } from "../common/SummaryApi";
 
 const RazorpayPaymentButton = ( { list_items, addressId, subTotalAmt, totalAmt,userDetails } ) => {
   const orderDetails = {
@@ -44,11 +44,12 @@ const RazorpayPaymentButton = ( { list_items, addressId, subTotalAmt, totalAmt,u
           //   ...SummaryApi.rzp_verify, 
           //   orderId   
           // } )
-          
+           
 
           // await axios.post("http://localhost:4000/api/order/verify-payment", paymentResult);
 
-          let baseURL = 'https://blinkit-clone-full-stack-ecommerce.onrender.com'
+
+          // let baseURL = 'https://blinkit-clone-full-stack-ecommerce.onrender.com'
           verify_payment = fetch(`${baseURL}/api/order/verify-payment`,{
             method:"POST",
             headers:{"Content-Type":"application/json"},

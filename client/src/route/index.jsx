@@ -23,6 +23,8 @@ import CartMobile from "../pages/CartMobile";
 import CheckoutPage from "../pages/CheckoutPage";
 import Success from "../pages/Success";
 import Cancel from "../pages/Cancel";
+import AllPayments from "../components/AllPayments";
+import AllUsers from "../components/AllUsers";
 
 const router = createBrowserRouter([
     {
@@ -92,6 +94,14 @@ const router = createBrowserRouter([
                     {
                         path : 'product',
                         element : <AdminPermision><ProductAdmin/></AdminPermision>
+                    },
+                    {
+                        path:'payments',
+                        element : <AdminPermision><AllPayments/></AdminPermision>
+                    },
+                    {
+                        path:'all-users',
+                        element : <AdminPermision><AllUsers/></AdminPermision>
                     }
                 ]
             },

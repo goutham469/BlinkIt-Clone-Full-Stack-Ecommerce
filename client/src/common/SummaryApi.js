@@ -162,6 +162,10 @@ const SummaryApi = {
     rzp_verify:{
         url :'api/order/verify-payment',
         method:'post'   
+    },
+    all_payments:{
+        url :'api/order/all-orders',
+        method : 'post'
     }
 }
 

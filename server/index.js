@@ -53,11 +53,16 @@ app.use('/api/order',orderRouter)
 connectDB().then(()=>{
     app.listen(PORT,()=>{
         console.log("Server is running",PORT)
+        console.log("This service will be available for only : ",process.env.FRONTEND_URL)
 
         console.log("version : 1.1")
         console.log("key changes : ")
         console.log("1.replace CORS site with environment variables.")
-        console.log("This service will be available for only : ",process.env.FRONTEND_URL)
+
+        console.log("version : 1.2")
+        console.log("key changes : ")
+        console.log("1.added routes for Order : 1)get all orders,2)delete order for PENDING orders !")
+        console.log("1.added GET all users route .")
 
         console.log("ok")
     })

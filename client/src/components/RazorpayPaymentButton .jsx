@@ -48,7 +48,7 @@ const RazorpayPaymentButton = ( { list_items, addressId, subTotalAmt, totalAmt,u
 
           // await axios.post("http://localhost:4000/api/order/verify-payment", paymentResult);
 
-          let baseURL = import.meta.env.VITE_SERVER_URL;
+          let baseURL = 'https://blinkit-clone-full-stack-ecommerce.onrender.com'
           verify_payment = fetch(`${baseURL}/api/order/verify-payment`,{
             method:"POST",
             headers:{"Content-Type":"application/json"},

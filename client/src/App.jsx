@@ -19,6 +19,17 @@ import CartMobileLink from './components/CartMobile';
 function App() {
   const dispatch = useDispatch()
   const location = useLocation()
+
+
+  async function getServer() {
+    let data = await fetch('https://blinkit-clone-full-stack-ecommerce.onrender.com')
+    console.log(data)    
+
+    data = await data.json()
+    console.log(data)
+
+  }
+  getServer()
   
 
   const fetchUser = async()=>{

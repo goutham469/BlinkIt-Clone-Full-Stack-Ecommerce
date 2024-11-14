@@ -15,14 +15,17 @@ import GlobalProvider from './provider/GlobalProvider';
 import { FaCartShopping } from "react-icons/fa6";
 import CartMobileLink from './components/CartMobile';
 
+export const baseURL = import.meta.env.VITE_SERVER_URL;
 
 function App() {
   const dispatch = useDispatch()
   const location = useLocation()
 
+  console.log("server : ",baseURL)
+
 
   async function getServer() {
-    let data = await fetch('https://blinkit-clone-full-stack-ecommerce.onrender.com')
+    let data = await fetch(baseURL)
     console.log(data)    
 
     data = await data.json()

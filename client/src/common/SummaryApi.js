@@ -1,6 +1,6 @@
 // export const baseURL = process.env.REACT_APP_SERVER_URL
-// export const baseURL = import.meta.env.VITE_SERVER_URL;
-export const baseURL = 'https://blinkit-clone-full-stack-ecommerce.onrender.com'
+export const baseURL = import.meta.env.VITE_SERVER_URL;
+// export const baseURL = 'https://blinkit-clone-full-stack-ecommerce.onrender.com'
 
 const SummaryApi = {
     register : {

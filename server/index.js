@@ -58,6 +58,8 @@ connectDB().then(()=>{
         console.log("key changes : ")
         console.log("1.replace CORS site with environment variables.")
         console.log("This service will be available for only : ",process.env.FRONTEND_URL)
+
+        console.log("ok")
     })
 })
 

@@ -3,6 +3,7 @@ import { FaRegEyeSlash } from 'react-icons/fa6';
 import { FaRegEye } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { baseURL } from '../common/SummaryApi';
 
 const Register = () => {
     const [data, setData] = useState({
@@ -38,7 +39,7 @@ const Register = () => {
 
         // Send POST request with fetch
         try {
-            const response = await fetch('/api/user/register', {
+            const response = await fetch(`${baseURL}/api/user/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

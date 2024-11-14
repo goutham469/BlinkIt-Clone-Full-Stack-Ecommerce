@@ -22,7 +22,7 @@ const app = express()
 //     origin : process.env.FRONTEND_URL
 // }))
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(cors({ origin: process.env.FRONTEND_URL , credentials: true }))
 
 app.use(express.json())
 app.use(cookieParser())
@@ -35,6 +35,7 @@ const PORT = process.env.PORT || 8080
 
 app.get("/",(request,response)=>{
     ///server to client
+    console.log("new request came from ",request.ip)
     response.json({
         message : "Server is running " + PORT
     })
@@ -52,6 +53,13 @@ app.use('/api/order',orderRouter)
 connectDB().then(()=>{
     app.listen(PORT,()=>{
         console.log("Server is running",PORT)
+
+        console.log("version : 1.1")
+        console.log("key changes : ")
+        console.log("1.replace CORS site with environment variables.")
+        console.log("This service will be available for only : ",process.env.FRONTEND_URL)
+
+        console.log("ok")
     })
 })
 

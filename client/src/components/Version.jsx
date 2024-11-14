@@ -7,13 +7,17 @@ function Version() {
         {
             version:'1.3',
             data:['Payments PENDING will not be showed' , 'add address tab at UserMenu.jsx component removed' , 'Social media icons refrers added for sanjay' , 'Banner image changed']
+        },
+        {
+            version:'1.4',
+            data:['admin dashboard changes' , 'all users tab added' , 'all payments tab added' , 'profile dropdown changed as per new need']
         }
     ]
     const user = useSelector((state)=> state.user)
 
     const cur_version = {
-                            version:'1.3',
-                            data:['Payments PENDING will not be showed' , 'add address tab at UserMenu.jsx component removed' , 'Social media icons refrers added for sanjay' , 'Banner image changed']
+                            version:'1.4',
+                            data:['admin dashboard changes' , 'all users tab added' , 'all payments tab added' , 'profile dropdown changed as per new need']
                         }
 
     console.log(versions)

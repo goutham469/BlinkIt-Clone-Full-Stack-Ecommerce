@@ -7,8 +7,7 @@ const orderSchema = new mongoose.Schema({
     },
     orderId : {
         type : String,
-        required : [true, "Provide orderId"],
-        unique : true
+        required : [true, "Provide orderId"]
     },
     productId : {
         type : mongoose.Schema.ObjectId,
@@ -28,8 +27,8 @@ const orderSchema = new mongoose.Schema({
         default : ""
     },
     delivery_address : {
-        type : mongoose.Schema.ObjectId,
-        ref : 'address'
+        type : String,
+        default : ''
     },
     subTotalAmt : {
         type : Number,

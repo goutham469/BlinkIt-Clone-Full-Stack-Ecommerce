@@ -62,13 +62,15 @@ const razorpay = new Razorpay({
 // Create an order with Razorpay and store in the database
 export async function OnlinePaymentOrderController(req, res) {
 
-    console.log("new payment came : ")
+    console.log("\n\nnew payment came : ")
     console.log(req.body)
   try {
     const userId = req.userId; // authenticated user ID
     const { list_items, totalAmt, addressId, subTotalAmt } = req.body;
 
     console.log("userId created by auth middleware : ",userId)
+
+    
 
     // Create a Razorpay order
     const razorpayOrder = await razorpay.orders.create({
@@ -80,10 +82,12 @@ export async function OnlinePaymentOrderController(req, res) {
       },
     });
 
+    const orderIdAsString = String(razorpayOrder.id);
+
     // Prepare payload for MongoDB
     const payload = list_items.map((el) => ({
       userId: userId,
-      orderId: razorpayOrder.id,
+      orderId: orderIdAsString ,
       productId: el.productId._id,
       product_details: {
         name: el.productId.name,
@@ -92,18 +96,43 @@ export async function OnlinePaymentOrderController(req, res) {
       },
       paymentId: "", // Will update after successful payment
       payment_status: "PENDING",
-      delivery_address: addressId,
+      delivery_address: 'addressId',
       subTotalAmt: subTotalAmt,
       totalAmt: totalAmt,
     }));
 
-    console.log("payload to insert into DB : ",)
+    console.log("payload to insert into DB : ",payload)
+    console.log("address : ",payload[0].delivery_address)
 
-    const generatedOrder = await OrderModel.insertMany(payload);
+
+
+    console.log("new payload : ",payload)
+    let generatedOrder = ''
+
+    try
+    {
+      generatedOrder = await OrderModel.insertMany(payload);
+    }
+    catch(err){
+      console.log("problem in insertion at DB")
+      console.log(err)
+
+      return res.status(500).json({
+        message: err.message || 'problem in insertion at DB',
+        error: true,
+        success: false
+      });
+    }
+
+    console.log("generatedOrder : ",generatedOrder)
+    
 
     ///remove from the cart
     const removeCartItems = await CartProductModel.deleteMany({ userId : userId })
     const updateInUser = await UserModel.updateOne({ _id : userId }, { shopping_cart : []})
+
+    console.log("removeCartItems : ",removeCartItems)
+    console.log("updateInUser : ",updateInUser)
 
     return res.json({
       message: "Order initiated",
@@ -121,6 +150,10 @@ export async function OnlinePaymentOrderController(req, res) {
   }
 }
 
+
+
+
+
 // Verify Razorpay payment and update order
 export async function VerifyPaymentController(req, res) {
   try {
@@ -130,6 +163,8 @@ export async function VerifyPaymentController(req, res) {
 
     // Validate signature (additional code for signature validation required here)
 
+    console.log("rzp payment id : ",orderId)
+
     // Update order details in DB upon successful payment
     const updatedOrder = await OrderModel.updateMany(
       { orderId: orderId },
@@ -138,6 +173,8 @@ export async function VerifyPaymentController(req, res) {
         payment_status: "PAID"
       }
     );
+
+    console.log("updatedOrder : ",updatedOrder)
 
     return res.json({
       message: "Payment successful",

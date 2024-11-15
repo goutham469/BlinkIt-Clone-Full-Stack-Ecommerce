@@ -59,12 +59,19 @@ connectDB().then(()=>{
         console.log("1.replace CORS site with environment variables.")
         console.log("This service will be available for only : ",process.env.FRONTEND_URL)
 
-        console.log("version : 1.2")
+        console.log("\nversion : 1.2")
         console.log("key changes : ")
         console.log("1.added routes for Order : 1)get all orders,2)delete order for PENDING orders !")
         console.log("2.added route for all-users")
 
+        console.log("\nversion : 1.3")
+        console.log("key changes : ")
+        console.log("1.multiple payments with RZP enabled with removing unique constraint for Orders schema !")
+        console.log("2.Orders Schema modified")
+
         console.log("ok")
+
+        
     })
 })
 

@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import auth from '../middleware/auth.js'
-import { CashOnDeliveryOrderController, deleteOrdersController, getAllOrdersController, getOrderDetailsController, OnlinePaymentOrderController, paymentController, VerifyPaymentController, webhookStripe } from '../controllers/order.controller.js'
+import { CashOnDeliveryOrderController, deleteOrdersController, getAllOrdersController, getOrderDetailsController, grantAccessController, OnlinePaymentOrderController, paymentController, VerifyPaymentController, webhookStripe } from '../controllers/order.controller.js'
 
 const orderRouter = Router()
 
@@ -14,6 +14,7 @@ orderRouter.post('/verify-payment',VerifyPaymentController)
 
 orderRouter.get('/all-orders',getAllOrdersController)
 orderRouter.post('/deletePayment',deleteOrdersController)
+orderRouter.post('/grantAccess' , grantAccessController)
 
 
 

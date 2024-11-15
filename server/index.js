@@ -69,6 +69,10 @@ connectDB().then(()=>{
         console.log("1.multiple payments with RZP enabled with removing unique constraint for Orders schema !")
         console.log("2.Orders Schema modified")
 
+        console.log("\nversion : 1.4")
+        console.log("key changes : ")
+        console.log("1.Grant access route added !")
+
         console.log("ok")
 
         

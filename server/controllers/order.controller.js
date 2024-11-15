@@ -4,6 +4,7 @@ import OrderModel from "../models/order.model.js";
 import UserModel from "../models/user.model.js";
 import mongoose from "mongoose";
 import Razorpay from "razorpay";
+import { ObjectId } from "mongodb";
 
  export async function CashOnDeliveryOrderController(request,response){
 
@@ -129,7 +130,7 @@ export async function OnlinePaymentOrderController(req, res) {
 
     ///remove from the cart
     const removeCartItems = await CartProductModel.deleteMany({ userId : userId })
-    const updateInUser = await UserModel.updateOne({ _id : userId }, { shopping_cart : []})
+    const updateInUser = await UserModel.updateOne({ _id : userId }, { shopping_cart : [] })
 
     console.log("removeCartItems : ",removeCartItems)
     console.log("updateInUser : ",updateInUser)
@@ -388,6 +389,28 @@ export async function deleteOrdersController(request,response){
 
       return response.json({
           message : "deleted",
+          data : orderlist,
+          error : false,
+          success : true
+      })
+  } catch (error) {
+      return response.status(500).json({
+          message : error.message || error,
+          error : true,
+          success : false
+      })
+  }
+}
+
+export async function grantAccessController(request,response){
+  try {
+    console.log(request.body)
+
+      const orderlist = await OrderModel.updateOne(  { _id: new ObjectId(request.body.orderId) } , {$set:{ payment_status:'PAID' , paymentId:'ACCESS GRANTED'}})
+      console.log("an access granted . ","orderId = ",request.body.orderId,"status : ",orderlist)
+
+      return response.json({
+          message : "access granted",
           data : orderlist,
           error : false,
           success : true

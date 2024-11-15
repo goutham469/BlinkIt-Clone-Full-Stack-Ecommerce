@@ -7,6 +7,7 @@ import AxiosToastError from '../utils/AxiosToastError'
 import Loading from './Loading'
 import { useSelector } from 'react-redux'
 import { FaMinus, FaPlus } from "react-icons/fa6";
+import { BsCart4, BsCartXFill } from 'react-icons/bs'
 
 const AddToCartButton = ({ data }) => {
     
@@ -111,16 +112,19 @@ const AddToCartButton = ({ data }) => {
 
                         {
                             qty%2==0?
-                            <button onClick={increaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>Add to Cart</button>
+                            <button onClick={increaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>
+                                <BsCart4/>
+                                <label>Add to Cart</label>
+                            </button>
                             :
-                            <button onClick={decreaseQty2} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>Remove</button>
+                            <button onClick={decreaseQty2} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full px-3 py-1 rounded flex items-center justify-center'><BsCartXFill size={24}/></button>
                         }
 
                         
                     </div>
                 ) : (
                     <button onClick={handleADDTocart} className='bg-green-600 hover:bg-green-700 text-white px-2 lg:px-4 py-1 rounded'>
-                        {loading ? <Loading /> : "Add"}
+                        {loading ? <Loading /> : <BsCart4 size={22}/>}
                     </button>
                 )
             }

@@ -15,13 +15,17 @@ function Version() {
         {
             version:'1.5',
             data:['search bar place holder and animations changed, functionality disabled' , 'CATEGORIES icons changes']
+        },
+        {
+            version:'1.6',
+            data:['RZP , multiple payments will be accepted !, change made only on backend' , 'index.html icons added' , 'chat bot integrated' , 'Cart side delivery time removed' , 'add and remove to cart , icons added']
         }
     ]
     const user = useSelector((state)=> state.user)
 
     const cur_version = {
-                            version:'1.5',
-                            data:['search bar place holder and animations changed, functionality disabled' , 'CATEGORIES icons changes']
+                            version:'1.6',
+                            data:['RZP , multiple payments will be accepted !, change made only on backend' , 'index.html icons added' , 'chat bot integrated' , 'Cart side delivery time removed' , 'add and remove to cart , icons added']
                         }
 
     console.log(versions)

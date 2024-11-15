@@ -61,38 +61,38 @@ const ProductDisplayPage = () => {
 
             <div className='bg-white lg:min-h-[65vh] lg:max-h-[65vh] rounded min-h-56 max-h-56 h-full w-full'>
                <div className='bg-white lg:min-h-[65vh] lg:max-h-[65vh] rounded min-h-56 max-h-56 h-full w-full relative'>
-  <img
-      src={data.image[image]}
-      className='w-full h-full object-scale-down'
-      alt="content"
-  />
-  {image === -1 && (
-    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center overflow-hidden rounded-lg shadow-lg">
-      {data.more_details.embedVideo ? (
-        <div
-          dangerouslySetInnerHTML={{ __html: data.more_details.embedVideo }}
-          className="w-full h-full"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
-            borderRadius: "8px",
-            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-          }}
-        />
-      ) : (
-        <iframe
-          className="w-full h-full rounded-lg shadow-lg"
-          src="https://www.youtube.com/embed/qyCVCGg_3Ec"
-          title="Embedded Video"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        ></iframe>
-      )}
-    </div>
-  )}
-</div>
+                  <img
+                      src={data.image[image]}
+                      className='w-full h-full object-scale-down'
+                      alt="content"
+                  />
+                  {image === -1 && (
+                    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center overflow-hidden rounded-lg shadow-lg">
+                      {data.more_details.embedVideo ? (
+                        <div
+                          dangerouslySetInnerHTML={{ __html: data.more_details.embedVideo }}
+                          className="w-full h-full"
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            borderRadius: "8px",
+                            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+                          }}
+                        />
+                      ) : (
+                        <iframe
+                          className="w-full h-full rounded-lg shadow-lg"
+                          src="https://www.youtube.com/embed/38wisWFVvq8" 
+                          title="Embedded Video"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                        ></iframe> 
+                      )}
+                    </div>
+                  )}
+                </div>
 
             </div>
 
@@ -131,15 +131,15 @@ const ProductDisplayPage = () => {
                         })
                       }
                       {
-  data.image && (
-    <div 
-      onClick={() => setImage(-1)} 
-      style={{marginTop:"20px"}}
-    >
-      <button  className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>Play Video</button>
-    </div>
-  )
-}
+                        data.image && (
+                          <div 
+                            onClick={() => setImage(-1)} 
+                            style={{marginTop:"20px"}}
+                          >
+                            <button  className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>Play Video</button>
+                          </div>
+                        )
+                      }
                 </div>
                 <div className='w-full -ml-3 h-full hidden lg:flex justify-between absolute  items-center'>
                     <button onClick={handleScrollLeft} className='z-10 bg-white relative p-1 rounded-full shadow-lg'>
@@ -156,7 +156,10 @@ const ProductDisplayPage = () => {
             <div className='my-4  hidden lg:grid gap-3 '>
                 <div>
                     <p className='font-semibold'>Description</p>
-                    <p className='text-base'>{data.description}</p>
+                    {/* <p className='text-base'>{data.description}</p> */}
+                    {
+                      data.description?.split('.').map((line,idx)=><p>{line}</p>)
+                    }
                 </div>
                 {/* <div>
                     <p className='font-semibold'>Unit</p>
@@ -177,7 +180,7 @@ const ProductDisplayPage = () => {
 
 
         <div className='p-4 lg:pl-7 text-base lg:text-lg'>
-            <p className='bg-green-300 w-fit px-2 rounded-full'>Video length 10min</p>
+            {/* <p className='bg-green-300 w-fit px-2 rounded-full'>Video length 10min</p> */}
             <h2 className='text-lg font-semibold lg:text-3xl'>{data.name}</h2>  
             {/* <p className=''>{data.unit}</p>  */}
             <Divider/>

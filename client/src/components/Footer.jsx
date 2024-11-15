@@ -19,7 +19,7 @@ const Footer = () => {
             <div>
                 <p
                     style={{ fontSize: "14px", cursor: "pointer", display: "inline-flex", alignItems: "center" }}
-                    onClick={() => window.open('https://goutham469.netlify.app', '_blank')}
+                    onClick={() => window.open('https://designwithsanjay.netlify.app/', '_blank')}
                 >
                     <b>Created By @editwithsanjay All Rights Reserved</b>
                     <RiShareBoxLine />

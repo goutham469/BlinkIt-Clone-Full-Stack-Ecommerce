@@ -50,6 +50,7 @@ const RazorpayPaymentButton = ( { list_items, addressId, subTotalAmt, totalAmt,u
 
 
           // let baseURL = 'https://blinkit-clone-full-stack-ecommerce.onrender.com'
+          
           verify_payment = fetch(`${baseURL}/api/order/verify-payment`,{
             method:"POST",
             headers:{"Content-Type":"application/json"},

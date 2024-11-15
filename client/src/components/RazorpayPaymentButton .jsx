@@ -62,6 +62,8 @@ const RazorpayPaymentButton = ( { list_items, addressId, subTotalAmt, totalAmt,u
 
           alert("Payment successful!",verify_payment.data.success,verify_payment.data.error);
 
+          window.location.reload()
+
         },
         prefill: {
           name: '',
@@ -70,7 +72,13 @@ const RazorpayPaymentButton = ( { list_items, addressId, subTotalAmt, totalAmt,u
         },
         theme: {
           color: "#3399cc"
-        }
+        },
+        method: {
+          netbanking: true,
+          card: true,
+          upi: true, 
+          upiQR:false
+        },
       };
 
       console.log("check point 2")
@@ -79,6 +87,8 @@ const RazorpayPaymentButton = ( { list_items, addressId, subTotalAmt, totalAmt,u
       razorpayInstance.open();
 
       console.log("check point 3")
+
+     
 
 
     } catch (error) {

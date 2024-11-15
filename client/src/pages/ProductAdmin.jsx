@@ -108,7 +108,7 @@ const ProductAdmin = () => {
                     return(
                       <ProductCardAdmin data={p} fetchProductData={fetchProductData}  />
                     )
-                  })
+                  }) 
                 }
               </div>
             </div>

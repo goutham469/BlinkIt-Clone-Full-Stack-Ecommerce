@@ -19,19 +19,23 @@ function Version() {
         {
             version:'1.6',
             data:['RZP , multiple payments will be accepted !, change made only on backend' , 'index.html icons added' , 'chat bot integrated' , 'Cart side delivery time removed' , 'add and remove to cart , icons added']
+        },
+        {
+            version:'1.7',
+            data : ['Chat bot removed' , 'Date of product purchase added in My Orders' , 'Failed purchases showed in User Orders' , 'advertisement banner at Checkout Page added'  ]
         }
     ]
     const user = useSelector((state)=> state.user)
 
     const cur_version = {
-                            version:'1.6',
-                            data:['RZP , multiple payments will be accepted !, change made only on backend' , 'index.html icons added' , 'chat bot integrated' , 'Cart side delivery time removed' , 'add and remove to cart , icons added']
+                            version:'1.7',
+                            data : ['Chat bot removed' , 'Date of product purchase added in My Orders' , 'Failed purchases showed in User Orders' , 'advertisement banner at Checkout Page added'  ]
                         }
 
     console.log(versions)
   return (
     <div style={{fontSize:"13px"}}>
-        <b>version : 1.3 . Last updated on: 14-11-2024</b>
+        <b>version : 1.7 . Last updated on: 15-11-2024</b>
         <br/>
         <br/>
         <div style={{textAlign:"left"}}>

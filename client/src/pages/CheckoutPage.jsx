@@ -10,6 +10,8 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import RazorpayPaymentButton from '../components/RazorpayPaymentButton '
 
+import sale from '../assets/sale.png'
+
 const CheckoutPage = () => {
   const { notDiscountTotalPrice, totalPrice, totalQty, fetchCartItem,fetchOrder } = useGlobalContext()
   const [openAddress, setOpenAddress] = useState(false)
@@ -88,6 +90,18 @@ const CheckoutPage = () => {
             </div>
           </div> */}
 
+
+          <div style={{fontSize:'20px',fontWeight:"600",fontFamily:'serif'}}>
+            <h3>Note :-</h3>
+            <p>1. We always prefer you to <b>Pay via UPI id</b> , BAR Code may fail sometimes !</p>
+            <p>2. After Purchase Your Orders will be in the My Orders Section.</p>
+            <p>3. To see your Orders , click on Profile Icon/Account button .</p>
+            <p>4. If you face any payment issues, contact +91 89773 00290 .</p>
+
+            <div onClick={()=>window.open('https://editing-pack.vercel.app' , '_blank')}  style={{cursor:"pointer"}}>
+              <img src={sale} className='w-full h-full hidden lg:block'/>
+            </div>
+          </div>
 
 
         </div> 

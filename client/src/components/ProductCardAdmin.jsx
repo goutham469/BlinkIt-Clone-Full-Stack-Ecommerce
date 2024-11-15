@@ -54,7 +54,7 @@ const ProductCardAdmin = ({ data, fetchProductData }) => {
         </div>
 
         {
-          editOpen && (
+          editOpen && ( 
             <EditProductAdmin fetchProductData={fetchProductData} data={data} close={()=>setEditOpen(false)}/>
           )
         }

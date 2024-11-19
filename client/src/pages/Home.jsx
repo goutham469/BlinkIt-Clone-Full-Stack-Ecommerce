@@ -45,10 +45,10 @@ const Home = () => {
                 />
             </div>
           </div>
-      </div>
+       </div>
       
       <div>
-        <h3 className='font-semibold text-lg md:text-xl mx-5' >CATEGORIE'S</h3>
+        <h3 className='font-semibold text-lg md:text-xl mx-5' >CATEGORIE's</h3>
         
         <div className='container mx-auto px-4  grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10  gap-2'>
             {
@@ -79,7 +79,7 @@ const Home = () => {
               )
             }
         </div>
-      </div>
+      </div> 
 
       {/***display category product */}
       {

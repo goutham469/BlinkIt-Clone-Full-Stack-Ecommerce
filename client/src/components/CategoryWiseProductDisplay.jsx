@@ -84,7 +84,7 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
                             )
                         }) 
                     }
-
+ 
 
                     {
                         data.map((p, index) => {

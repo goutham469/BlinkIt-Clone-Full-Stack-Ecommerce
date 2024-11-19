@@ -23,6 +23,10 @@ function Version() {
         {
             version:'1.7',
             data : ['Chat bot removed' , 'Date of product purchase added in My Orders' , 'Failed purchases showed in User Orders' , 'advertisement banner at Checkout Page added'  ]
+        },
+        {
+            version:'1.8',
+            data : ['Mobile view updated for Sub-Categories page']
         }
     ]
     const user = useSelector((state)=> state.user)

@@ -26,10 +26,10 @@ function App() {
 
   async function getServer() {
     let data = await fetch(baseURL)
-    console.log(data)    
+    // console.log(data)    
 
     data = await data.json()
-    console.log(data)
+    // console.log(data)
 
   }
   getServer()

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import SummaryApi from '../common/SummaryApi'
+import SummaryApi, { baseURL } from '../common/SummaryApi'
 import Axios from '../utils/Axios'
 import AxiosToastError from '../utils/AxiosToastError'
 import { FaAngleRight,FaAngleLeft, FaPlay } from "react-icons/fa6";
@@ -11,10 +11,13 @@ import image2 from '../assets/Best_Prices_Offers.png'
 import image3 from '../assets/Wide_Assortment.png'
 import { pricewithDiscount } from '../utils/PriceWithDiscount'
 import AddToCartButton from '../components/AddToCartButton'
+import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
+import CardProduct from '../components/CardProduct'
 
 const ProductDisplayPage = () => { 
   const params = useParams()
   let productId = params?.product?.split("-")?.slice(-1)[0]
+  const [recomendationData , setRecomendationData] = useState([])
   const [data,setData] = useState({
     name : "",
     image : []
@@ -37,6 +40,8 @@ const ProductDisplayPage = () => {
         if(responseData.success){
           setData(responseData.data)
         }
+        // console.log(responseData.data)
+
     } catch (error) {
       AxiosToastError(error)
     }finally{
@@ -44,9 +49,45 @@ const ProductDisplayPage = () => {
     }
   }
 
+  async function getRecomendationData() 
+  {
+    console.log("getting recomendation data")
+        
+    if (!data?.category?.length) {
+        console.error("Category data is undefined or empty");
+        return;
+    }else{
+      console.log("category data is VALID ")
+    }
+
+    console.log(data.category[0]); // Check if the category is logged
+    try {
+        let response = await fetch(`${baseURL}/api/product/get-product-by-category`, {
+            method: 'post',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: data.category[0] }),
+        });
+
+        response = await response.json();
+        console.log(response);
+        console.log(response.data);
+
+        setRecomendationData(response.data);
+    } catch (error) {
+        console.error("Error fetching recommendation data:", error);
+    }
+}
+
+
   useEffect(()=>{
     fetchProductDetails()
   },[params])
+
+  useEffect(() => {
+    if (data.category?.length > 0) {
+        getRecomendationData();
+    }
+}, [data]);
   
   const handleScrollRight = ()=>{
     imageContainer.current.scrollLeft += 100
@@ -55,8 +96,11 @@ const ProductDisplayPage = () => {
     imageContainer.current.scrollLeft -= 100
   }
   console.log("product data",data)
+
+
   return (
-    <section className='container mx-auto p-4 grid lg:grid-cols-2 '>
+    <div>
+      <section className='container mx-auto p-4 grid lg:grid-cols-2 '>
         <div className=''>
 
             <div className='bg-white lg:min-h-[65vh] lg:max-h-[65vh] rounded min-h-56 max-h-56 h-full w-full'>
@@ -153,29 +197,7 @@ const ProductDisplayPage = () => {
             <div>
             </div>
 
-            <div className='my-4  hidden lg:grid gap-3 '>
-                <div>
-                    <p className='font-semibold'>Description</p>
-                    {/* <p className='text-base'>{data.description}</p> */}
-                    {
-                      data.description?.split('.').map((line,idx)=><p>{line}</p>)
-                    }
-                </div>
-                {/* <div>
-                    <p className='font-semibold'>Unit</p>
-                    <p className='text-base'>{data.unit}</p>
-                </div> */}
-                {/* {
-                  data?.more_details && Object.keys(data?.more_details).filter((element)=>element!='driveLink').map((element,index)=>{
-                    return(
-                      <div>
-                          <p className='font-semibold'>{element}</p>
-                          <p className='text-base'>{data?.more_details[element]}</p>
-                      </div>
-                    )
-                  })
-                } */}
-            </div>
+            
         </div>
 
 
@@ -241,46 +263,65 @@ const ProductDisplayPage = () => {
                   </div>
                 )
               } */}
-           
-
-            <h2 className='font-semibold'>Why shop from binkeyit? </h2>
-            <div>
-                  <div className='flex  items-center gap-4 my-4'>
-                      <img
-                        src={image1}
-                        alt='superfast delivery'
-                        className='w-20 h-20'
-                      />
-                      <div className='text-sm'>
-                        <div className='font-semibold'>Superfast Delivery</div>
-                        <p>Get your orer delivered to your doorstep at the earliest from dark stores near you.</p>
+           <div className='my-4  hidden lg:grid gap-3 '>
+                <div>
+                    <p className='font-semibold'>Description</p>
+                    {/* <p className='text-base'>{data.description}</p> */}
+                    {
+                      data.description?.split('.').map((line,idx)=><p>{line}</p>)
+                    }
+                </div>
+                {/* <div>
+                    <p className='font-semibold'>Unit</p>
+                    <p className='text-base'>{data.unit}</p>
+                </div> */}
+                {/* {
+                  data?.more_details && Object.keys(data?.more_details).filter((element)=>element!='driveLink').map((element,index)=>{
+                    return(
+                      <div>
+                          <p className='font-semibold'>{element}</p>
+                          <p className='text-base'>{data?.more_details[element]}</p>
                       </div>
-                  </div>
-                  <div className='flex  items-center gap-4 my-4'>
-                      <img
-                        src={image2}
-                        alt='Best prices offers'
-                        className='w-20 h-20'
-                      />
-                      <div className='text-sm'>
-                        <div className='font-semibold'>Best Prices & Offers</div>
-                        <p>Best price destination with offers directly from the nanufacturers.</p>
-                      </div>
-                  </div>
-                  <div className='flex  items-center gap-4 my-4'>
-                      <img
-                        src={image3}
-                        alt='Wide Assortment'
-                        className='w-20 h-20'
-                      />
-                      <div className='text-sm'>
-                        <div className='font-semibold'>Wide Assortment</div>
-                        <p>Choose from 5000+ products across food personal care, household & other categories.</p>
-                      </div>
-                  </div>
+                    )
+                  })
+                } */}
             </div>
+
+            
+
+
+
         </div>
+
+
+         
+
+        
+
+        
     </section>
+
+        <div className='container mx-auto grid'>
+          <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Similar to this</h3>
+          <br/>
+          <div style={{display:"flex",justifyContent:"space-between",overflowX:"scroll",height:"400px"}}>
+            {
+            recomendationData?.map((c,index)=>{
+              console.log(c);
+              return(
+                <div style={{margin:"5px"}}>
+                  <CardProduct
+                    data={c}
+                    key={index}
+                  />
+                </div>
+              )
+            })
+          }
+          </div>
+        </div>
+    </div>
+    
   )
 }
 

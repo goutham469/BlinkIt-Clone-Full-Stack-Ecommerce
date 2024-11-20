@@ -32,8 +32,7 @@ const ProductListPage = () => {
 
   async function getMobileProductData() {
     try {
-      let response = await fetch(
-        `${baseURL}/api/product/get-product-by-category-mobile`,
+      let response = await fetch(`${baseURL}/api/product/get-product-by-category-mobile`,
         {
           method: "post",
           headers: { "Content-Type": "application/json" },
@@ -103,7 +102,7 @@ const ProductListPage = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const isMobile = window.innerWidth <= 768;
+      const isMobile = window.innerWidth <= 800;
       setIsMobileView(isMobile);
       setInnerWidth(window.innerWidth);
       if (isMobile) getMobileProductData(); // Refresh mobile data on resize

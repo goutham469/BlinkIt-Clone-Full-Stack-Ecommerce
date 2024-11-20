@@ -5,10 +5,11 @@ import { useSelector } from 'react-redux'
 import { valideURLConvert } from '../utils/valideURLConvert'
 import {Link, useNavigate} from 'react-router-dom'
 import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
+import shuffleArray from '../utils/shuffleArray'
 
 const Home = () => {
   const loadingCategory = useSelector(state => state.product.loadingCategory)
-  const categoryData = useSelector(state => state.product.allCategory)
+  let categoryData = useSelector(state => state.product.allCategory)
   const subCategoryData = useSelector(state => state.product.allSubCategory)
   const navigate = useNavigate()
 
@@ -62,15 +63,15 @@ const Home = () => {
                   )
                 })
               ) : (
-                categoryData.map((cat,index)=>{
+                shuffleArray(categoryData).map((cat,index)=>{
                   return(
                     <div key={cat._id+"displayCategory"} className='w-full h-full p-1' onClick={()=>handleRedirectProductListpage(cat._id,cat.name)}>
-                      <div style={{margin:"0px",padding:"0px"}}>
+                      <div style={{margin:"0px",padding:"5px",cursor:"pointer" }}>
                           <img 
                             src={cat.image}
-                            className='w-4/6 object-scale-down'
+                            className='w-5/6  '
                           />
-                          {/* <label>{cat.name}</label> */}
+                          <label style={{fontSize:"14px",lineHeight:"0.1px"}}>{ cat.name.split(' ')[0] } { cat.name.split(' ')[1] }</label>
                       </div>
                     </div>
                   )

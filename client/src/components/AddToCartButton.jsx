@@ -113,18 +113,25 @@ const AddToCartButton = ({ data }) => {
                         {
                             qty%2==0?
                             <button onClick={increaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>
-                                <BsCart4/>
-                                <label>Add to Cart</label>
+                                <BsCart4/> 
+                                Add
                             </button>
                             :
-                            <button onClick={decreaseQty2} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full px-3 py-1 rounded flex items-center justify-center'><BsCartXFill size={24}/></button>
+                            <button onClick={decreaseQty2} className='bg-amber-600 hover:bg-amber-500 text-white   px-2 lg:px-4 py-1 rounded'>
+                                <div style={{display:"flex",justifyContent:"space-between"}}>
+                                    <BsCartXFill size={22}/> 
+                                </div>
+                            </button>
                         }
 
                         
                     </div>
                 ) : (
                     <button onClick={handleADDTocart} className='bg-green-600 hover:bg-green-700 text-white px-2 lg:px-4 py-1 rounded'>
-                        {loading ? <Loading /> : <BsCart4 size={22}/>}
+                        {loading ? <Loading /> : <div style={{display:"flex",justifyContent:"space-between"}}  >
+                            <BsCart4 size={22}/>
+                            <label style={{marginLeft:"4px"}}> Add </label>
+                        </div>       }
                     </button>
                 )
             }

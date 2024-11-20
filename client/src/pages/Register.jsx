@@ -4,6 +4,9 @@ import { FaRegEye } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { baseURL } from '../common/SummaryApi';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+import { googleClientId } from './Login';
 
 const Register = () => {
     const [data, setData] = useState({
@@ -39,6 +42,8 @@ const Register = () => {
 
         // Send POST request with fetch
         try {
+            console.log(data);
+
             const response = await fetch(`${baseURL}/api/user/register`, {
                 method: 'POST',
                 headers: {
@@ -75,6 +80,66 @@ const Register = () => {
             toast.error(`Error: ${error.message}`);
         }
     };
+
+    function generateRandom10DigitNumber() {
+        const min = 1000000000; // Minimum 10-digit number
+        const max = 9999999999; // Maximum 10-digit number
+      
+        return String(Math.floor(Math.random() * (max - min + 1)) + min);
+      }
+
+
+    async function onSuccess(response)
+    {
+        let credential = jwtDecode(response.credential)
+
+        // alert(credential.email)
+        console.log(credential)
+
+        let data2 = data;
+
+        data2.confirmPassword = generateRandom10DigitNumber()
+        data2.password = data2.confirmPassword;
+        data2.name = credential.name;
+        data2.email = credential.email;
+
+        try {
+            const response = await fetch(`${baseURL}/api/user/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data) // Sending the data as a JSON string
+            });
+
+            console.log(response)
+
+            const result = await response.json(); // Parse JSON response
+
+            console.log(result)
+
+            if (!response.ok) {
+                // If response code is not OK (e.g., 4xx or 5xx)
+                toast.error(`Error: ${result.message}`);
+                return;
+            }
+
+            if (result.success) {
+                toast.success(`Registration successful: ${result.message}`);
+                setData({
+                    name: "",
+                    email: "",
+                    password: "",
+                    confirmPassword: ""
+                });
+                navigate("/login");
+            } else {
+                toast.error(result.message || "An error occurred during registration");
+            }
+        } catch (error) {
+            toast.error(`Error: ${error.message}`);
+        }
+    }
 
     return (
         <section className="w-full container mx-auto px-2">
@@ -150,6 +215,14 @@ const Register = () => {
                         Register
                     </button>
                 </form>
+
+
+                <center>
+                    <GoogleOAuthProvider clientId={googleClientId} >
+                        <GoogleLogin onSuccess={onSuccess}/>
+                    </GoogleOAuthProvider>
+                </center>
+                <br/>
 
                 <p>
                     Already have an account?{" "}

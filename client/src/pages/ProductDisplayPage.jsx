@@ -26,6 +26,19 @@ const ProductDisplayPage = () => {
   const [loading,setLoading] = useState(false)
   const imageContainer = useRef()
 
+  const [windowWidth , setWindowWidth] = useState(window.innerWidth)
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      // Generate a random index from 0 to i
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+  
+      // Swap the current element with the randomly chosen one
+      [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+    }
+    return array;
+  }
+
   const fetchProductDetails = async()=>{
     try {
         const response = await Axios({
@@ -72,7 +85,7 @@ const ProductDisplayPage = () => {
         console.log(response);
         console.log(response.data);
 
-        setRecomendationData(response.data);
+        setRecomendationData(shuffleArray(response.data));
     } catch (error) {
         console.error("Error fetching recommendation data:", error);
     }
@@ -84,18 +97,24 @@ const ProductDisplayPage = () => {
   },[params])
 
   useEffect(() => {
-    if (data.category?.length > 0) {
-        getRecomendationData();
+      if (data.category?.length > 0) {
+          getRecomendationData();
+      }
+  }, [data]);
+    
+    const handleScrollRight = ()=>{
+      imageContainer.current.scrollLeft += 100
     }
-}, [data]);
-  
-  const handleScrollRight = ()=>{
-    imageContainer.current.scrollLeft += 100
-  }
-  const handleScrollLeft = ()=>{
-    imageContainer.current.scrollLeft -= 100
-  }
-  console.log("product data",data)
+    const handleScrollLeft = ()=>{
+      imageContainer.current.scrollLeft -= 100
+    }
+  // console.log("product data",data)
+
+  useEffect(()=>{
+    window.addEventListener('resize',(e)=>{
+      setWindowWidth(window.innerWidth)
+    })
+  },[])
 
 
   return (
@@ -203,6 +222,7 @@ const ProductDisplayPage = () => {
 
         <div className='p-4 lg:pl-7 text-base lg:text-lg'>
             {/* <p className='bg-green-300 w-fit px-2 rounded-full'>Video length 10min</p> */}
+            <h2 className='text-lg font-semibold lg:text-3xl'>- {data.more_details?.cat}</h2>  
             <h2 className='text-lg font-semibold lg:text-3xl'>{data.name}</h2>  
             {/* <p className=''>{data.unit}</p>  */}
             <Divider/>
@@ -247,7 +267,7 @@ const ProductDisplayPage = () => {
                     ) : (
                       <AddToCartButton data={data} />
                     )
-                  }
+                  } 
                     
                 </div>
             }
@@ -285,41 +305,90 @@ const ProductDisplayPage = () => {
                     )
                   })
                 } */}
-            </div>
+            </div> 
 
-            
-
-
-
-        </div>
-
-
-         
-
-        
-
+        </div> 
         
     </section>
 
-        <div className='container mx-auto p-5 grid'>
-          <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Similar to this</h3>
-          <br/>
-          <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll",flexWrap:"wrap"}}>
-            {
-            recomendationData?.map((c,index)=>{
-              console.log(c);
-              return(
-                <div style={{margin:"5px",width:"200px"}}>
-                  <CardProduct
-                    data={c}
-                    key={index}
-                  />
-                </div>
-              )
-            })
-          }
-          </div>
-        </div>
+         
+          {
+            windowWidth<500?
+            <div className='container mx-auto p-5 grid'>
+              <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Similar to this</h3>
+              <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll" }}>
+                {
+                  shuffleArray(recomendationData)?.map((c,index)=>{
+                    // console.log(c);
+                    return(
+                      <div style={{margin:"5px",width:"230px" }}>
+                        <CardProduct
+                          data={c}
+                          key={index}
+                        />
+                      </div>
+                    )
+                  })
+                }
+              </div>
+
+              <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Recomended for you</h3>
+              <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll" }}>
+                {
+                  shuffleArray(recomendationData)?.map((c,index)=>{
+                    // console.log(c);
+                    return(
+                      <div style={{margin:"5px",width:"230px" }}>
+                        <CardProduct
+                          data={c}
+                          key={index}
+                        />
+                      </div>
+                    )
+                  })
+                }
+              </div>
+
+              <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>More to see</h3>
+              <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll" }}>
+                {
+                  shuffleArray(recomendationData)?.map((c,index)=>{
+                    // console.log(c);
+                    return(
+                      <div style={{margin:"5px",width:"230px" }}>
+                        <CardProduct
+                          data={c}
+                          key={index}
+                        />
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+            :
+            <div>
+               <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Similar to this</h3>
+              <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll",flexWrap:"wrap"}}>
+                {
+                recomendationData?.map((c,index)=>{
+                  // console.log(c);
+                  return(
+                    <div style={{margin:"5px",width:"200px"}}>
+                      <CardProduct
+                        data={c}
+                        key={index}
+                      />
+                    </div>
+                  )
+                })
+              }
+              </div>
+            </div>
+          } 
+
+      
+
     </div>
     
   )

@@ -16,6 +16,18 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
     const subCategoryData = useSelector(state => state.product.allSubCategory)
     const loadingCardNumber = new Array(6).fill(null)
 
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          // Generate a random index from 0 to i
+          const randomIndex = Math.floor(Math.random() * (i + 1));
+      
+          // Swap the current element with the randomly chosen one
+          [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+        }
+        return array;
+      }
+
     const fetchCategoryWiseProduct = async () => {
         try {
             setLoading(true)
@@ -29,7 +41,7 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
             const { data: responseData } = response
 
             if (responseData.success) {
-                setData(responseData.data)
+                setData(shuffleArray(responseData.data))
             }
         } catch (error) {
             AxiosToastError(error)

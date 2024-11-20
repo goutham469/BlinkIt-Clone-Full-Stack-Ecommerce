@@ -26,22 +26,21 @@ function Version() {
         },
         {
             version:'1.8',
-            data : ['Mobile view updated for Sub-Categories page']
+            data : ['Mobile view updated for Sub-Categories page' , 'Recomendation system added under complete produuct' , 'on-refresh products shuffled' , 'recomendation system for Mobile updated' , 'Google OAuth added' , 'Footer changed']
         }
     ]
     const user = useSelector((state)=> state.user)
 
     const cur_version = {
-                            version:'1.7',
-                            data : ['Chat bot removed' , 'Date of product purchase added in My Orders' , 'Failed purchases showed in User Orders' , 'advertisement banner at Checkout Page added'  ]
+                            version:'1.8',
+                            data : ['Mobile view updated for Sub-Categories page' , 'Recomendation system added under complete produuct' , 'on-refresh products shuffled' , 'recomendation system for Mobile updated' , 'Google OAuth added' , 'Footer changed']
                         }
 
     console.log(versions)
   return (
-    <div style={{fontSize:"13px"}}>
+    <div style={{fontSize:"13px",color:"white"}}>
         <b>version : 1.7 . Last updated on: 15-11-2024</b>
-        <br/>
-        <br/>
+         
         <div style={{textAlign:"left"}}>
             {
                 isAdmin(user.role)&&<b>key changes</b>

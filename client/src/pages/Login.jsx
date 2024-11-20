@@ -9,6 +9,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import fetchUserDetails from '../utils/fetchUserDetails';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from '../store/userSlice';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+
+export const googleClientId = import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID;
 
 const Login = () => {
     const [data, setData] = useState({
@@ -35,6 +39,8 @@ const Login = () => {
 
     const handleSubmit = async(e)=>{
         e.preventDefault()
+
+        console.log(data)
 
         try {
             const response = await Axios({
@@ -65,9 +71,52 @@ const Login = () => {
             AxiosToastError(error)
         }
 
+    }
+
+    async function onSuccess(response) 
+    {
+        let credential = response.credential
+        credential = await jwtDecode(credential)
+
+        console.log(credential.email)
+        // alert("ok !")
+
+        let data2 = data;
+        data2.OAuth = true;
+        data2.email = credential.email;
+
+        try {
+            const response = await Axios({
+                ...SummaryApi.login,
+                data : data2
+            })
+            
+            if(response.data.error){
+                toast.error(response.data.message)
+            }
+
+            if(response.data.success){
+                toast.success(response.data.message)
+                localStorage.setItem('accesstoken',response.data.data.accesstoken)
+                localStorage.setItem('refreshToken',response.data.data.refreshToken)
+
+                const userDetails = await fetchUserDetails()
+                dispatch(setUserDetails(userDetails.data))
+
+                setData({
+                    email : "",
+                    password : "",
+                })
+                navigate("/")
+            }
+
+        } catch (error) {
+            AxiosToastError(error)
+        }
 
 
     }
+
     return (
         <section className='w-full container mx-auto px-2'>
             <div className='bg-white my-4 w-full max-w-lg mx-auto rounded p-7'>
@@ -113,6 +162,14 @@ const Login = () => {
                     <button disabled={!valideValue} className={` ${valideValue ? "bg-green-800 hover:bg-green-700" : "bg-gray-500" }    text-white py-2 rounded font-semibold my-3 tracking-wide`}>Login</button>
 
                 </form>
+
+
+                <center>
+                    <GoogleOAuthProvider clientId={googleClientId} >
+                        <GoogleLogin onSuccess={onSuccess}/>
+                    </GoogleOAuthProvider>
+                </center>
+                <br/>
 
                 <p>
                     Don't have account? <Link to={"/register"} className='font-semibold text-green-700 hover:text-green-800'>Register</Link>

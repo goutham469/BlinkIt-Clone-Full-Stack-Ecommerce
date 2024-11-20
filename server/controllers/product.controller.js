@@ -1,4 +1,5 @@
 import ProductModel from "../models/product.model.js";
+import SubCategoryModel from "../models/subCategory.model.js";
 
 export const createProductController = async(request,response)=>{
     try {
@@ -110,10 +111,10 @@ export const getProductByCategory = async(request,response)=>{
 
         const product = await ProductModel.find({ 
             category : { $in : id }
-        }).limit(15)
+        }).limit(500)
 
         return response.json({
-            message : "category product list",
+            message : "category product list 2.0",
             data : product,
             error : false,
             success : true
@@ -126,6 +127,69 @@ export const getProductByCategory = async(request,response)=>{
         })
     }
 }
+
+export const getProductByCategoryMobile = async (request, response) => {
+    try {
+        const { id } = request.body;
+
+        if (!id) {
+            return response.status(400).json({
+                message: "Provide category id",
+                error: true,
+                success: false,
+            });
+        }
+
+        // Fetch products by category
+        let products = await ProductModel.find({
+            category: { $in: id },
+        }).limit(500);
+
+        // Fetch all subcategories
+        let subCategories = await SubCategoryModel.find( );
+
+        subCategories = subCategories.filter((item)=>item.category[0]._id == id)
+
+        // console.log("subCategories : ",subCategories)
+
+        // Prepare the finalData structure
+        let finalData = subCategories.map((category) => ({
+            id: category._id,
+            name: category.name,
+            products: [],
+            image: category.image,
+        }));
+
+        // console.log("finalData : ",finalData)
+
+        // Populate products into the respective subcategory
+        products.forEach((product) => {
+            const idx = finalData.findIndex((item) => item.id.toString() === product.subCategory[0]?.toString());
+            if (idx !== -1) {
+                finalData[idx].products.push(product); // Add product to the subcategory
+            }
+        });
+
+        // console.log("finalData after : ",finalData)
+
+        return response.json({
+            message: "Category product list 2.0",
+            data: finalData,
+            error: false,
+            success: true,
+        });
+    } catch (error) {
+        return response.status(500).json({
+            message: error.message || error,
+            error: true,
+            success: false,
+        });
+    }
+};
+
+
+
+
 
 export const getProductByCategoryAndSubCategory  = async(request,response)=>{
     try {

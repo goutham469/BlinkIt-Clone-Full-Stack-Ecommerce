@@ -73,6 +73,10 @@ connectDB().then(()=>{
         console.log("key changes : ")
         console.log("1.Grant access route added !")
 
+        console.log("\nversion : 1.5")
+        console.log("key changes : ")
+        console.log("1.Mobile category wise data added ")
+
         console.log("ok")
 
         

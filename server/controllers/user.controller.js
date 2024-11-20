@@ -109,20 +109,23 @@ export async function loginController(request,response){
     try {
         const { email , password } = request.body
 
-
-        if(!email || !password){
-            return response.status(400).json({
-                message : "provide email, password",
-                error : true,
-                success : false
-            })
+        // oauth
+        if(!request.body.OAuth)
+        {
+            if(!email || !password){
+                return response.status(400).json({
+                    message : "provide email, password",
+                    error : true,
+                    success : false
+                })
+            }
         }
 
         const user = await UserModel.findOne({ email })
 
         if(!user){
             return response.status(400).json({
-                message : "User not register",
+                message : "User not registered",
                 error : true,
                 success : false
             })
@@ -138,12 +141,16 @@ export async function loginController(request,response){
 
         const checkPassword = await bcryptjs.compare(password,user.password)
 
-        if(!checkPassword){
-            return response.status(400).json({
-                message : "Check your password",
-                error : true,
-                success : false
-            })
+        // oauth
+        if(!request.body.OAuth)
+        {
+            if(!checkPassword){
+                return response.status(400).json({
+                    message : "Check your password",
+                    error : true,
+                    success : false
+                })
+            }
         }
 
         const accesstoken = await generatedAccessToken(user._id)

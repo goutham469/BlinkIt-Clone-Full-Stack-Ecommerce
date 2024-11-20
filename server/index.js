@@ -77,6 +77,10 @@ connectDB().then(()=>{
         console.log("key changes : ")
         console.log("1.Mobile category wise data added ")
 
+        console.log("\nversion : 1.6")
+        console.log("key changes : ")
+        console.log("1.Login route for Google OAuth added ")
+
         console.log("ok")
 
         

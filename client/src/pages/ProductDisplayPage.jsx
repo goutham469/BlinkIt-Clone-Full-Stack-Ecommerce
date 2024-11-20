@@ -263,7 +263,7 @@ const ProductDisplayPage = () => {
                   </div>
                 )
               } */}
-           <div className='my-4  hidden lg:grid gap-3 '>
+           <div className='my-4    lg:grid gap-3 '>
                 <div>
                     <p className='font-semibold'>Description</p>
                     {/* <p className='text-base'>{data.description}</p> */}
@@ -301,15 +301,15 @@ const ProductDisplayPage = () => {
         
     </section>
 
-        <div className='container mx-auto grid'>
+        <div className='container mx-auto p-5 grid'>
           <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Similar to this</h3>
           <br/>
-          <div style={{display:"flex",justifyContent:"space-between",overflowX:"scroll",height:"400px"}}>
+          <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll",flexWrap:"wrap"}}>
             {
             recomendationData?.map((c,index)=>{
               console.log(c);
               return(
-                <div style={{margin:"5px"}}>
+                <div style={{margin:"5px",width:"200px"}}>
                   <CardProduct
                     data={c}
                     key={index}

@@ -13,6 +13,7 @@ import { pricewithDiscount } from '../utils/PriceWithDiscount'
 import AddToCartButton from '../components/AddToCartButton'
 import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
 import CardProduct from '../components/CardProduct'
+import youtubeImage from '../assets/youtube.png'
 
 const ProductDisplayPage = () => { 
   const params = useParams()
@@ -108,7 +109,7 @@ const ProductDisplayPage = () => {
     const handleScrollLeft = ()=>{
       imageContainer.current.scrollLeft -= 100
     }
-  // console.log("product data",data)
+  console.log("product data",data)
 
   useEffect(()=>{
     window.addEventListener('resize',(e)=>{
@@ -168,9 +169,7 @@ const ProductDisplayPage = () => {
                   )
                 })
                 
-              }
-              
-              
+              } 
 
             </div>
 
@@ -178,15 +177,16 @@ const ProductDisplayPage = () => {
 
 
             <div className='grid relative'>
-                <div ref={imageContainer} className='flex gap-4 z-10 relative w-full overflow-x-auto scrollbar-none'>
+                <div ref={imageContainer} className='flex gap-4 z-10 relative w-full overflow-x-auto scrollbar-none p-5'>
                       {
                         data.image.map((img,index)=>{
                           return(
-                            <div className='w-20 h-20 min-h-20 min-w-20 scr cursor-pointer shadow-md' key={img+index}>
+                            <div className='w-24 h-20 min-h-20 min-w-20 scr cursor-pointer ' key={img+index}>
                               <img
                                   src={img}
                                   alt='min-product'
                                   onClick={()=>setImage(index)}
+                                  onMouseEnter={()=>setImage(index)}
                                   className='w-full h-full object-scale-down' 
                               />
                             </div>
@@ -197,24 +197,20 @@ const ProductDisplayPage = () => {
                         data.image && (
                           <div 
                             onClick={() => setImage(-1)} 
-                            style={{marginTop:"20px"}}
+                            onMouseEnter={()=>setImage(-1)}
+                            style={{marginTop:"15px"}}
                           >
-                            <button  className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>Play Video</button>
+                            <button  className='  items-center justify-center'>
+                              <img src={youtubeImage} style={{width:"70px"}}/>
+                            </button>
                           </div>
                         )
                       }
                 </div>
-                <div className='w-full -ml-3 h-full hidden lg:flex justify-between absolute  items-center'>
-                    <button onClick={handleScrollLeft} className='z-10 bg-white relative p-1 rounded-full shadow-lg'>
-                        <FaAngleLeft/>
-                    </button>
-                    <button onClick={handleScrollRight} className='z-10 bg-white relative p-1 rounded-full shadow-lg'>
-                        <FaAngleRight/>
-                    </button>
-                </div>
+                 
             </div>
-            <div>
-            </div>
+
+             
 
             
         </div>
@@ -222,7 +218,7 @@ const ProductDisplayPage = () => {
 
         <div className='p-4 lg:pl-7 text-base lg:text-lg'>
             {/* <p className='bg-green-300 w-fit px-2 rounded-full'>Video length 10min</p> */}
-            <h2 className='text-lg font-semibold lg:text-3xl'>- {data.more_details?.cat}</h2>  
+            <p style={{fontSize:"16px",color:"#737385"}} >- {data.more_details?.cat}</p>  
             <h2 className='text-lg font-semibold lg:text-3xl'>{data.name}</h2>  
             {/* <p className=''>{data.unit}</p>  */}
             <Divider/>
@@ -315,7 +311,7 @@ const ProductDisplayPage = () => {
           {
             windowWidth<500?
             <div className='container mx-auto p-5 grid'>
-              <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Similar to this</h3>
+              <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Suggested Products</h3>
               <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll" }}>
                 {
                   shuffleArray(recomendationData)?.map((c,index)=>{
@@ -331,8 +327,8 @@ const ProductDisplayPage = () => {
                   })
                 }
               </div>
-
-              <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>Recomended for you</h3>
+ 
+              <br/>
               <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll" }}>
                 {
                   shuffleArray(recomendationData)?.map((c,index)=>{
@@ -348,14 +344,15 @@ const ProductDisplayPage = () => {
                   })
                 }
               </div>
-
-              <h3 style={{fontSize:"24px",fontWeight:"600",marginLeft:"20px"}}>More to see</h3>
+              
+              <br/>
+               
               <div style={{display:"flex",justifyContent:"space-around",overflowX:"scroll" }}>
                 {
                   shuffleArray(recomendationData)?.map((c,index)=>{
                     // console.log(c);
                     return(
-                      <div style={{margin:"5px",width:"230px" }}>
+                      <div style={{margin:"5px",width:"250px" }}>
                         <CardProduct
                           data={c}
                           key={index}

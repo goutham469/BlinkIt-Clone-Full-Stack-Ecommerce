@@ -38,8 +38,10 @@ function Version() {
 
     console.log(versions)
   return (
-    <div style={{fontSize:"13px",color:"white"}}>
-        <b>version : 1.7 . Last updated on: 15-11-2024</b>
+    <div style={{fontSize:"12px",color:"white"}}>
+        <center>
+            <b>version : 1.8. Last updated on 20-11-2024</b>
+        </center>
          
         <div style={{textAlign:"left"}}>
             {

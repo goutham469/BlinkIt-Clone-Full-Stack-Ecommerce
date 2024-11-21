@@ -118,7 +118,7 @@ const ProductListPage = () => {
   return (
     <section className="sticky top-24 lg:top-20">
       {isMobileView ? (
-        <div>
+        <div className="container  p-2 ">
           {/* Mobile View */}
           <div>
             {mobileData.length === 0 ? (

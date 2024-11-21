@@ -133,8 +133,8 @@ input {
 .footer-list-title {
     position: relative;
     color: var(--rich-black-fogra-29);
-    font-family: var(--ff-josefin-sans);
-    font-size: var(--fs-3);
+    font-family: sans-serif;
+    font-size:18px;
     font-weight: var(--fw-700);
     margin-bottom: 25px;
 }

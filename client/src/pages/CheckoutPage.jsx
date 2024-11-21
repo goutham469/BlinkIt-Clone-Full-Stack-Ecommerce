@@ -152,21 +152,23 @@ const CheckoutPage = () => {
                 <label className="block text-gray-700 text-sm font-medium mb-2">Enter your email ID</label>
                 <input
                   type="email"
+                  placeholder='doe@yahoo.com'
                   required
                   onChange={(e) =>
                     setFormData((prevData) => ({ ...prevData, email: e.target.value }))
                   }
-                  className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{border:"1px solid black",padding:"5px",margin:"5px",borderRadius:"5px"}}
                 />
 
                 <label className="block text-gray-700 text-sm font-medium mb-2">Enter your mobile number</label>
                 <input
                   type="number"
                   required
+                  placeholder='9876543210'
                   onChange={(e) =>
                     setFormData((prevData) => ({ ...prevData, phone: e.target.value }))
                   }
-                  className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  style={{border:"1px solid black",padding:"5px",margin:"5px",borderRadius:"5px"}}
                 />
 
                 <button
@@ -174,7 +176,7 @@ const CheckoutPage = () => {
                     e.preventDefault();
                     setFormData((prevData) => ({ ...prevData, submit: true }));
                   }}
-                  className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200"
+                  className="w-full bg-green-500 text-white mt-5 py-2 rounded hover:bg-green-600 transition duration-200"
                 >
                   Submit
                 </button>

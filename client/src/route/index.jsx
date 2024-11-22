@@ -25,6 +25,7 @@ import Success from "../pages/Success";
 import Cancel from "../pages/Cancel";
 import AllPayments from "../components/AllPayments";
 import AllUsers from "../components/AllUsers";
+import ProductMetrics from "../components/ProductMetrics";
 
 const router = createBrowserRouter([
     {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
                     {
                         path:'all-users',
                         element : <AdminPermision><AllUsers/></AdminPermision>
+                    },
+                    {
+                        path:'metrics',
+                        element : <AdminPermision><ProductMetrics /></AdminPermision>
                     }
                 ]
             },

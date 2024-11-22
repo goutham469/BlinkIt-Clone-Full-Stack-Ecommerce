@@ -14,8 +14,15 @@ import AddToCartButton from '../components/AddToCartButton'
 import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
 import CardProduct from '../components/CardProduct'
 import youtubeImage from '../assets/youtube.png'
+import { useSelector } from 'react-redux'
+
 
 const ProductDisplayPage = () => { 
+
+  const user = useSelector(state => state.user)
+  // console.log(user)
+
+
   const params = useParams()
   let productId = params?.product?.split("-")?.slice(-1)[0]
   const [recomendationData , setRecomendationData] = useState([])
@@ -74,7 +81,7 @@ const ProductDisplayPage = () => {
       console.log("category data is VALID ")
     }
 
-    console.log(data.category[0]); // Check if the category is logged
+    // console.log(data.category[0]); // Check if the category is logged
     try {
         let response = await fetch(`${baseURL}/api/product/get-product-by-category`, {
             method: 'post',
@@ -83,8 +90,8 @@ const ProductDisplayPage = () => {
         });
 
         response = await response.json();
-        console.log(response);
-        console.log(response.data);
+        // console.log(response);
+        // console.log(response.data);
 
         setRecomendationData(shuffleArray(response.data));
     } catch (error) {
@@ -109,13 +116,85 @@ const ProductDisplayPage = () => {
     const handleScrollLeft = ()=>{
       imageContainer.current.scrollLeft -= 100
     }
-  console.log("product data",data)
+  // console.log("product data",data)
 
   useEffect(()=>{
     window.addEventListener('resize',(e)=>{
       setWindowWidth(window.innerWidth)
     })
   },[])
+
+
+  useEffect(() => {
+    // Capture start time when the component mounts
+    const startTime = new Date();
+
+    const formatTime = (time) =>
+        `${time.getHours()}:${time.getMinutes().toString().padStart(2, '0')}:${time.getSeconds().toString().padStart(2, '0')}`;
+
+    const handleUnload = () => {
+        const endTime = new Date();
+
+        // Calculate viewed time in seconds
+        const viewedTime = Math.floor((endTime - startTime) / 1000); // Convert ms to seconds
+
+        const startFormatted = formatTime(startTime);
+        const endFormatted = formatTime(endTime);
+
+        // Send data using navigator.sendBeacon for reliability during page unload
+        navigator.sendBeacon(
+            `${baseURL}/api/survey/update-product-metrics`,
+            JSON.stringify({
+                productId: data._id,
+                userId: user._id,
+                viewedTime,
+                startTime: startFormatted,
+                endTime: endFormatted,
+            })
+        );
+    };
+
+    // Attach `beforeunload` event listener
+    window.addEventListener('beforeunload', handleUnload);
+
+    return () => {
+        // Capture end time when the component unmounts
+        const endTime = new Date();
+
+        // Calculate viewed time in seconds
+        const viewedTime = Math.floor((endTime - startTime) / 1000); // Convert ms to seconds
+
+        const startFormatted = formatTime(startTime);
+        const endFormatted = formatTime(endTime);
+
+        // Send data to the API
+        fetch(`${baseURL}/api/survey/update-product-metrics`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                productId: data._id,
+                userId: user._id,
+                viewedTime,
+                startTime: startFormatted,
+                endTime: endFormatted,
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    console.log('Metrics successfully sent');
+                } else {
+                    console.error('Failed to send metrics');
+                }
+            })
+            .catch((error) => console.error('Error:', error));
+
+        // Cleanup the `beforeunload` listener
+        window.removeEventListener('beforeunload', handleUnload);
+    };
+}, [data._id, user._id]);
+
 
 
   return (

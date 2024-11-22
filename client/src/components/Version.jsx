@@ -27,20 +27,24 @@ function Version() {
         {
             version:'1.8',
             data : ['Mobile view updated for Sub-Categories page' , 'Recomendation system added under complete produuct' , 'on-refresh products shuffled' , 'recomendation system for Mobile updated' , 'Google OAuth added' , 'Footer changed']
+        },
+        {
+            version:'1.9',
+            data : ['Feed back form for remove cart added' , 'admin dashboard for metrics added' , 'product page opened , tracking of metrics']
         }
     ]
     const user = useSelector((state)=> state.user)
 
     const cur_version = {
-                            version:'1.8',
-                            data : ['Mobile view updated for Sub-Categories page' , 'Recomendation system added under complete produuct' , 'on-refresh products shuffled' , 'recomendation system for Mobile updated' , 'Google OAuth added' , 'Footer changed']
+                            version:'1.9',
+                            data : ['Feed back form for remove cart added' , 'admin dashboard for metrics added' , 'product page opened , tracking of metrics']
                         }
 
     console.log(versions)
   return (
     <div style={{fontSize:"12px",color:"white"}}>
         <center>
-            <b>version : 1.8. Last updated on 20-11-2024</b>
+            <b>version : 1.9. Last updated on 23-11-2024</b>
         </center>
          
         <div style={{textAlign:"left"}}>

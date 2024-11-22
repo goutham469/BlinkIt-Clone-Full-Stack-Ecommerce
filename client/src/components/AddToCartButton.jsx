@@ -8,6 +8,7 @@ import Loading from './Loading'
 import { useSelector } from 'react-redux'
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { BsCart4, BsCartXFill } from 'react-icons/bs'
+import BottomForm from './BottomForm'
 
 const AddToCartButton = ({ data }) => {
     
@@ -17,6 +18,9 @@ const AddToCartButton = ({ data }) => {
     const [isAvailableCart, setIsAvailableCart] = useState(false)
     const [qty, setQty] = useState(0)
     const [cartItemDetails,setCartItemsDetails] = useState()
+
+    const [productDetails , setProductDetails] = useState({})
+    const [showForm, setShowForm] = useState(false)  // Add state to control form visibility
 
     const handleADDTocart = async (e) => {
         e.preventDefault()
@@ -52,7 +56,6 @@ const AddToCartButton = ({ data }) => {
 
             }
 
-           
         } catch (error) {
             AxiosToastError(error)
         } finally {
@@ -92,50 +95,56 @@ const AddToCartButton = ({ data }) => {
             const response = await updateCartItem(cartItemDetails?._id,qty-1)
 
             if(response.success){
-                toast.success("Item remove")
+                toast.success("Item removed")
             }
         }
     }
+    
     const decreaseQty2 = async(e) => {
         e.preventDefault()
-        e.stopPropagation()
+        e.stopPropagation() 
+        let data = cartItemDetails;
+        setProductDetails(cartItemDetails)
         deleteCartItem(cartItemDetails?._id)
+        console.log(data)
+
+        // Open the BottomForm when the item is removed from the cart
+        setShowForm(true)   
     }
+
     return (
         <div className='w-full max-w-[150px]'>
             {
                 isAvailableCart ? (
                     <div className='flex w-full h-full'>
-                        {/* <button onClick={decreaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'><FaMinus /></button> */}
-
-                        {/* <p className='flex-1 w-full font-semibold px-1 flex items-center justify-center'>{qty}</p> */}
-
                         {
-                            qty%2==0?
-                            <button onClick={increaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>
-                                <BsCart4/> 
-                                Add
-                            </button>
-                            :
-                            <button onClick={decreaseQty2} className='bg-amber-600 hover:bg-amber-500 text-white   px-2 lg:px-4 py-1 rounded'>
-                                <div style={{display:"flex",justifyContent:"space-between"}}>
-                                    <BsCartXFill size={22}/> 
-                                </div>
-                            </button>
+                            qty % 2 === 0 ?
+                                <button onClick={increaseQty} className='bg-green-600 hover:bg-green-700 text-white flex-1 w-full p-1 rounded flex items-center justify-center'>
+                                    <BsCart4 /> 
+                                    Add
+                                </button>
+                                :
+                                <button onClick={decreaseQty2} className='bg-amber-600 hover:bg-amber-500 text-white px-2 lg:px-4 py-1 rounded'>
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <BsCartXFill size={22}/> 
+                                    </div>
+                                </button>
                         }
-
-                        
                     </div>
                 ) : (
                     <button onClick={handleADDTocart} className='bg-green-600 hover:bg-green-700 text-white px-2 lg:px-4 py-1 rounded'>
-                        {loading ? <Loading /> : <div style={{display:"flex",justifyContent:"space-between"}}  >
+                        {loading ? <Loading /> : <div style={{ display: "flex", justifyContent: "space-between" }} >
                             <BsCart4 size={22}/>
-                            <label style={{marginLeft:"4px"}}> Add </label>
-                        </div>       }
+                            <label style={{ marginLeft: "4px" }}> Add </label>
+                        </div>}
                     </button>
                 )
             }
 
+            {/* Display BottomForm if showForm is true */}
+            {showForm && <div> 
+                <BottomForm productId={productDetails?.productId?._id} userId={productDetails?.userId} />
+            </div>  }
         </div>
     )
 }

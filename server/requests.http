@@ -7,3 +7,64 @@ Content-Type: application/json
   "password": "123",
   "confirmPassword": "123"
 }
+###
+POST http://localhost:4000/api/survey/update-product-metrics
+Content-Type: application/json
+
+{
+  "productId":"6737128df28bba4b5ad08e79",
+  "userId":"67339ae19c196f9a7bea8ae5",
+  "viewedTime":1000,
+  "startTime":"22:50",
+  "endTime":"22:51"
+}
+###
+POST http://localhost:4000/api/survey/add-survey-question
+Content-Type: application/json
+
+{
+  "productId":"6737132bf28bba4b5ad08e86",
+  "questions":[
+                {
+                    "question": "Why did you remove this product from your cart?",
+                    "type": "multiple-choice",
+                    "options": ["Too expensive", "Found a better alternative", "Changed my mind"]
+                },
+                {
+                    "question": "Any additional feedback?",
+                    "type": "text"
+                }
+            ]
+}
+
+###
+POST http://localhost:4000/api/survey/get-form-details
+Content-Type: application/json
+
+{
+  "productId":"6737132bf28bba4b5ad08e86"
+}
+###
+POST http://localhost:4000/api/survey/submit-survey-answer
+Content-Type: application/json
+
+{
+  "productId": "6489f9d4f8c9001123456781",
+  "userId": "6489f9d4f8c9001123456780",
+  "userDetails": {
+  },
+  "responses": [
+    {
+      "question": "Why did you remove this product from your cart?",
+      "answer": "Too expensive"
+    },
+    {
+      "question": "What feature would make you reconsider buying it?",
+      "answer": "Better discounts"
+    },
+    {
+      "question": "Any additional feedback?",
+      "answer": "Great product, but price is a concern"
+    }
+  ]
+}

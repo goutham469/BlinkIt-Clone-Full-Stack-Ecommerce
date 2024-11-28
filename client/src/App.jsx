@@ -25,22 +25,36 @@ function App() {
 
 
   async function getServer() {
-    let data = await fetch(baseURL)
-    // console.log(data)  
-    return data  
-    
-    // console.log(data)
-
-  }
-  for(let i=0;i<30;i++)
-  {
-    let res = getServer();
-    console.log(res)
-    if(res.ok)
-    {
-      break;
+    try {
+      let response = await fetch(baseURL);
+      let data = await response.json();
+      return data;
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      return { ok: false }; // Handle fetch errors gracefully
     }
   }
+  
+  async function coldStartLambda() {
+    let delay = 100; // Start with 100ms
+    while (true) {
+      try {
+        let data = await getServer();
+        if (data.ok) {
+          console.log("Lambda is warmed up");
+          break; // Exit the loop once Lambda is warm
+        }
+      } catch (err) {
+        console.error("Error during cold start check:", err);
+      }
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      delay = Math.min(delay * 2, 5000); // Exponential backoff up to 5 seconds
+    }
+  }
+  
+  coldStartLambda();
+
+
   
 
   const fetchUser = async()=>{

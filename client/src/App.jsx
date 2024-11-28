@@ -29,10 +29,14 @@ function App() {
     // console.log(data)    
 
     data = await data.json()
+    
     // console.log(data)
 
   }
-  getServer()
+  for(i=0;i<10;i++)
+  {
+    getServer();
+  }
   
 
   const fetchUser = async()=>{

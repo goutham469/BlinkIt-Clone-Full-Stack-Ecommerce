@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import banner from '../assets/banner.jpg'
 import bannerMobile from '../assets/banner-mobile.jpg'
 import { useSelector } from 'react-redux'
@@ -27,6 +27,18 @@ const Home = () => {
       navigate(url)
       console.log(url)
   }
+
+  const [screenWidth , setScreenWidth] = useState(window.innerWidth)
+
+  useEffect(()=>{
+    window.addEventListener('resize',(e)=>{
+      // console.log(e.window.innerWidth)
+      setScreenWidth(window.innerWidth);
+
+      console.log(window.innerWidth)
+    })
+
+  },[screenWidth])
 
 
   return (
@@ -67,11 +79,24 @@ const Home = () => {
                   return(
                     <div key={cat._id+"displayCategory"} className='w-full h-full p-1' onClick={()=>handleRedirectProductListpage(cat._id,cat.name)}>
                       <div style={{margin:"0px",padding:"5px",cursor:"pointer" }}>
-                          <img 
-                            src={cat.image}
-                            className='w-5/6  '
-                          />
-                          <label style={{fontSize:"14px",lineHeight:"0.1px"}}>{ cat.name.split(' ')[0] } { cat.name.split(' ')[1] }</label>
+                          {
+                            screenWidth < 500 ?
+                              <img 
+                              src={cat.image}
+                            />
+                            :
+                            <img 
+                              src={cat.image}
+                              className='w-5/6  '
+                            />
+                          }
+                          {
+                            screenWidth < 500 ?
+                            <label style={{fontSize:"0.8em",fontWeight:"500",lineHeight:"0.01px"}}> { cat.name.split(' ')[0] } { cat.name.split(' ')[1] }</label>
+                            :
+                            <label style={{fontSize:"14px",fontWeight:"600",lineHeight:"0.1px"}}> { cat.name.split(' ')[0] } { cat.name.split(' ')[1] }</label>
+                          }
+                          
                       </div>
                     </div>
                   )

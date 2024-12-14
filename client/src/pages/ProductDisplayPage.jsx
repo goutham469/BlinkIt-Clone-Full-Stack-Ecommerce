@@ -61,7 +61,7 @@ const ProductDisplayPage = () => {
         if(responseData.success){
           setData(responseData.data)
         }
-        // console.log(responseData.data)
+        console.log(responseData.data)
 
     } catch (error) {
       AxiosToastError(error)
@@ -466,7 +466,7 @@ const ProductDisplayPage = () => {
       
 
     </div>
-    
+
   )
 }
 

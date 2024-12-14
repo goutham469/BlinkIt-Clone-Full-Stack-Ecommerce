@@ -4,6 +4,8 @@ import logoIcon from '../assets/logo.png'
 import { FaWhatsapp } from "react-icons/fa6";
 import Version from "./Version";
 
+export const Client_URL = import.meta.env.VITE_CLIENT_URL;
+
 const Footer = () => {
 
   const handleWhatsAppRedirect = () => {
@@ -12,6 +14,8 @@ const Footer = () => {
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}` , "_blank")
   }; 
+
+  
 
   return (
     <footer class="footer">
@@ -62,7 +66,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a href="#" class="footer-link">
+                            <a href="./dashboard" class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">My Account</span>
@@ -70,7 +74,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a href="#" class="footer-link">
+                            <a href="./checkout" class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">View Cart</span>
@@ -78,7 +82,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a href="#" class="footer-link">
+                            <a href="./dashboard/myorders" class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">My Orders</span>
@@ -103,7 +107,7 @@ const Footer = () => {
                         <table class="footer-table">
                             <tbody>
                                 <li>
-                                    <a href="#" class="footer-link">
+                                    <a href={`${Client_URL}/After-Effects-Template's--67365c078c2f3f39f73e2cac/CINEMATIC-TITLE'S-6737a6d76a02825477b37d3b`} target="_blank" class="footer-link">
                                         <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                         <span class="footer-link-text">After Effects</span>
@@ -111,14 +115,14 @@ const Footer = () => {
                                 </li>
 
                                 <li>
-                                    <a href="#" class="footer-link">
+                                    <a href={`${Client_URL}/Premiere-Pro-Templates-673b6ce9af2ab53e052de8f6/CHANNEL-INTRO'S-673b6db1af2ab53e052de90c`} target="_blank" class="footer-link">
                                         <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                         <span class="footer-link-text">Premiere Pro</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="footer-link">
+                                    <a href={`${Client_URL}/Photoshop-Templates-67365d008c2f3f39f73e2d02/GAMING-THUMBNAIL'S-67371075f28bba4b5ad08e4f`} target="_blank"   class="footer-link">
                                         <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                         <span class="footer-link-text">Photoshop</span>
@@ -126,7 +130,7 @@ const Footer = () => {
                                 </li>
 
                                 <li>
-                                    <a href="#" class="footer-link">
+                                    <a href={`${Client_URL}/Davinci-Resolve-Templates-6737a49d6a02825477b37c64/CINEMATIC-TITLE'S-6737a4ad6a02825477b37c69`} target="_blank" class="footer-link">
                                         <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                         <span class="footer-link-text">Davinci Resolve </span>

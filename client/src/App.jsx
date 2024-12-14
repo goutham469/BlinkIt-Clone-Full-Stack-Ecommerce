@@ -40,7 +40,7 @@ function App() {
     while (true) {
       try {
         let data = await getServer();
-        if (data.ok) {
+        if (data.mongoConnection) {
           console.log("Lambda is warmed up");
           break; // Exit the loop once Lambda is warm
         }
@@ -99,6 +99,7 @@ function App() {
   
 
   useEffect(()=>{
+    coldStartLambda();
     fetchUser()
     fetchCategory()
     fetchSubCategory()

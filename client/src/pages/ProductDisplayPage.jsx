@@ -70,6 +70,35 @@ const ProductDisplayPage = () => {
     }
   }
 
+  async function getCategoryName(catId)
+  {
+
+    console.log(catId);
+    
+    let response = await fetch(`${baseURL}/api/category/get`);
+
+    let categories = await response.json();
+
+    
+
+    categories = categories.data;
+
+    console.log(categories)
+    
+    const matchedCategory = categories.find(cat => cat._id === catId);
+    console.log(matchedCategory)
+    
+    if (matchedCategory) {
+      setData(prevData => {
+        let newData = prevData;
+        newData.more_details.cat = matchedCategory.name;
+        return newData;
+      });
+    } else {
+      console.warn(`No matching category found for ID: ${data.category[0]}`);
+    }
+  }
+
   async function getRecomendationData() 
   {
     console.log("getting recomendation data")
@@ -102,12 +131,19 @@ const ProductDisplayPage = () => {
 
   useEffect(()=>{
     fetchProductDetails()
+    
+
   },[params])
+
+  
 
   useEffect(() => {
       if (data.category?.length > 0) {
           getRecomendationData();
+          getCategoryName(data.category[0]);
       }
+
+      
   }, [data]);
     
     const handleScrollRight = ()=>{

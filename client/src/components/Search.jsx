@@ -23,7 +23,7 @@ const Search = () => {
     const redirectToSearchPage = ()=>{
         navigate("/search")
     }
-
+ 
     const handleOnChange = (e)=>{
         const value = e.target.value
         const url = `/search?q=${value}`
@@ -31,7 +31,7 @@ const Search = () => {
     }
 
   return (
-    <div className='w-full  min-w-[300px] lg:min-w-[420px] h-11 lg:h-12 rounded-lg border overflow-hidden flex items-center text-neutral-500 bg-slate-50 group focus-within:border-primary-200 '>
+    <div className='w-full  min-w-[300px] lg:min-w-[420px] h-11 lg:h-12 rounded-lg border overflow-hidden flex items-center text-neutral-500 bg-slate-50 group focus-within:border-green-900 '>
         <div>
             {
                 (isMobile && isSearchPage ) ? (
@@ -39,7 +39,7 @@ const Search = () => {
                         <FaArrowLeft size={20}/>
                     </Link>
                 ) :(
-                    <button className='flex justify-center items-center h-full p-3 group-focus-within:text-primary-200'>
+                    <button className='flex justify-center items-center h-full p-3 group-focus-within:text-green-900'>
                         <IoSearch size={22}/>
                     </button>
                 )
@@ -77,12 +77,12 @@ const Search = () => {
                             className='bg-transparent w-full h-full outline-none'
 
 
-                            // onChange={handleOnChange}
+                            onChange={handleOnChange}
 
 
                         />
                     </div>
-                )
+                ) 
             }
         </div>
         

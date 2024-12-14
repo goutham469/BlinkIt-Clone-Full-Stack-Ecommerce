@@ -31,13 +31,17 @@ function Version() {
         {
             version:'1.9',
             data : ['Feed back form for remove cart added' , 'admin dashboard for metrics added' , 'product page opened , tracking of metrics']
+        },
+        {
+            version:'1.10',
+            data : [ 'search functionality updated' , 'AWS Lambda cold starts updated.'  , 'banner image for both Mobile and Desktop size reduced.' ]
         }
     ]
     const user = useSelector((state)=> state.user)
 
     const cur_version = {
-                            version:'1.9',
-                            data : ['Feed back form for remove cart added' , 'admin dashboard for metrics added' , 'product page opened , tracking of metrics']
+                            version:'1.10',
+                            data : [ 'search functionality updated' , 'AWS Lambda cold starts updated.'  , 'banner image for both Mobile and Desktop size reduced.' ]
                         }
 
     console.log(versions)

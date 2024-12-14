@@ -8,7 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { useLocation } from 'react-router-dom'
 import noDataImage from '../assets/nothing here yet.webp'
 
-const SearchPage = () => {
+const SearchPage = () => { 
   const [data,setData] = useState([])
   const [loading,setLoading] = useState(true)
   const loadingArrayCard = new Array(10).fill(null)
@@ -16,6 +16,8 @@ const SearchPage = () => {
   const [totalPage,setTotalPage] = useState(1)
   const params = useLocation()
   const searchText = params?.search?.slice(3)
+
+  console.log(searchText)
 
   const fetchData = async() => {
     try {

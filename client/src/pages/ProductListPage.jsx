@@ -27,7 +27,7 @@ const ProductListPage = () => {
     ?.slice(0, subCategory?.length - 1)
     ?.join(" ");
 
-  const categoryId = params.category.split("-").slice(-1)[0];
+  const categoryId = params.category.split("-").slice(-1)[0]; 
   const subCategoryId = params.subCategory.split("-").slice(-1)[0];
 
   async function getMobileProductData() {
@@ -101,6 +101,13 @@ const ProductListPage = () => {
   }, [params, AllSubCategory]);
 
   useEffect(() => {
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    })
+
+
     const handleResize = () => {
       const isMobile = window.innerWidth <= 800;
       setIsMobileView(isMobile);
@@ -149,6 +156,12 @@ const ProductListPage = () => {
         <div className="container mx-auto grid grid-cols-[90px,1fr] md:grid-cols-[200px,1fr] lg:grid-cols-[280px,1fr]">
           {/* Desktop View */}
           <div className="min-h-[88vh] max-h-[88vh] overflow-y-scroll shadow-md scrollbarCustom bg-white py-2">
+            <h3>{ params }</h3>
+            <h3>hi</h3>
+            <h3>hi</h3>
+            <h3>hi</h3>
+            
+            
             {DisplaySubCatory.map((s, index) => {
               const link = `/${valideURLConvert(s?.category[0]?.name)}-${s?.category[0]?._id}/${valideURLConvert(
                 s.name
@@ -204,6 +217,7 @@ const ProductListPage = () => {
           </div>
         </div>
       )}
+      
     </section>
   );
 };

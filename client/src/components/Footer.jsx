@@ -66,7 +66,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a href="./dashboard" class="footer-link">
+                            <a href={`${Client_URL}/dashboard/profile`}  class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">My Account</span>
@@ -74,7 +74,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a href="./checkout" class="footer-link">
+                            <a  href={`${Client_URL}/checkout`} class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">View Cart</span>
@@ -82,7 +82,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a href="./dashboard/myorders" class="footer-link">
+                            <a href={`${Client_URL}/dashboard/myorders`}    class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">My Orders</span>

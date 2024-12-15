@@ -14,6 +14,7 @@ const ProductListPage = () => {
   const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(1);
   const params = useParams();
+  console.log(params)
   const AllSubCategory = useSelector((state) => state.product.allSubCategory);
   const [DisplaySubCatory, setDisplaySubCategory] = useState([]);
 
@@ -126,6 +127,11 @@ const ProductListPage = () => {
     <section className="sticky top-24 lg:top-20">
       {isMobileView ? (
         <div className="container  p-2 ">
+          
+          <div  style={{fontSize:"20px",margin:"3px",textTransform:"uppercase",textAlign:"center",fontWeight:"800"}}  >
+            { params.category.split('-').slice(0,2).map(p=><label  >{`${p} `}</label> ) }
+          </div>
+
           {/* Mobile View */}
           <div>
             {mobileData.length === 0 ? (
@@ -133,6 +139,7 @@ const ProductListPage = () => {
             ) : (
               mobileData.map((subCategory, idx) => (
                 <div key={idx} className="mb-4">
+
                   {/* Subcategory Title */}
                   <h3 className="font-bold text-lg mb-2">
                     {subCategory.name || "Unnamed Subcategory"}
@@ -156,10 +163,11 @@ const ProductListPage = () => {
         <div className="container mx-auto grid grid-cols-[90px,1fr] md:grid-cols-[200px,1fr] lg:grid-cols-[280px,1fr]">
           {/* Desktop View */}
           <div className="min-h-[88vh] max-h-[88vh] overflow-y-scroll shadow-md scrollbarCustom bg-white py-2">
-            <h3>{ params }</h3>
-            <h3>hi</h3>
-            <h3>hi</h3>
-            <h3>hi</h3>
+            
+           
+            <div  style={{fontSize:"20px",margin:"3px",textTransform:"uppercase",textAlign:"center",fontWeight:"800"}}  >
+              { params.category.split('-').slice(0,2).map(p=><label  >{`${p} `}</label> ) }
+            </div>
             
             
             {DisplaySubCatory.map((s, index) => {

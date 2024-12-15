@@ -48,7 +48,7 @@ function Version() {
   return (
     <div style={{fontSize:"12px",color:"white"}}>
         <center>
-            <b>version : 1.9. Last updated on 23-11-2024</b>
+            <b>version : {cur_version.version}. Last updated on 23-11-2024</b>
         </center>
          
         <div style={{textAlign:"left"}}>

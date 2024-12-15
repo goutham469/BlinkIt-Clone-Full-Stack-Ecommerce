@@ -33,12 +33,12 @@ const Footer = () => {
 
                         <li>
                             <address class="footer-link">
-                    <ion-icon name="location"></ion-icon>
+                                <ion-icon name="location"></ion-icon>
 
-                    <span class="footer-link-text">
-                        Hyderabad,Telangana,INDIA
-                    </span>
-                  </address>
+                                <span class="footer-link-text">
+                                    Hyderabad,Telangana,INDIA
+                                </span>
+                            </address>
                         </li>
 
                         <li>
@@ -59,6 +59,49 @@ const Footer = () => {
 
                     </ul>
 
+
+                    <ul class="footer-list">
+
+                        <li>
+                            <p class="footer-list-title">Info </p>
+                        </li>
+
+                        <li>
+                            <a href={`${window.location.host}/license`}  class="footer-link">
+                                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                                <span class="footer-link-text"> License 
+                                </span>
+                            </a>
+                        </li>
+                        
+
+                        <li>
+                            <a href={`${window.location.host}/contact-us`}  class="footer-link">
+                                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                                <span class="footer-link-text"> Contact Us 
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a  href={`${window.location.host}/cookies`} class="footer-link">
+                                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                                <span class="footer-link-text">Cookies </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a  href={`${window.location.host}/privacy-policy`} class="footer-link">
+                                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                                <span class="footer-link-text"> Privacy Policy </span>
+                            </a>
+                        </li>
+                    </ul>
+
                     <ul class="footer-list">
 
                         <li>
@@ -66,7 +109,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a href={`${window.location.href}/dashboard/profile`}  class="footer-link">
+                            <a href={`${window.location.host}/dashboard/profile`}  class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">My Account</span>
@@ -74,7 +117,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a  href={`${window.location.href}/checkout`} class="footer-link">
+                            <a  href={`${window.location.host}/checkout`} class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">View Cart</span>
@@ -82,7 +125,7 @@ const Footer = () => {
                         </li>
 
                         <li>
-                            <a href={`${window.location.href}/dashboard/myorders`}    class="footer-link">
+                            <a href={`${window.location.host}/dashboard/myorders`}    class="footer-link">
                                 <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                 <span class="footer-link-text">My Orders</span>
@@ -107,7 +150,7 @@ const Footer = () => {
                         <table class="footer-table">
                             <tbody>
                                 <li>
-                                    <a href={`${window.location.href}After-Effects-Template's--67365c078c2f3f39f73e2cac/CINEMATIC-TITLE'S-6737a6d76a02825477b37d3b`} target="_blank" class="footer-link">
+                                    <a href={`${window.location.host}/After-Effects-Template's--67365c078c2f3f39f73e2cac/CINEMATIC-TITLE'S-6737a6d76a02825477b37d3b`} target="_blank" class="footer-link">
                                         <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                         <span class="footer-link-text">After Effects</span>
@@ -115,14 +158,14 @@ const Footer = () => {
                                 </li>
 
                                 <li>
-                                    <a href={`${window.location.href}/Premiere-Pro-Templates-673b6ce9af2ab53e052de8f6/CHANNEL-INTRO'S-673b6db1af2ab53e052de90c`} target="_blank" class="footer-link">
+                                    <a href={`${window.location.host}/Premiere-Pro-Templates-673b6ce9af2ab53e052de8f6/CHANNEL-INTRO'S-673b6db1af2ab53e052de90c`} target="_blank" class="footer-link">
                                         <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                         <span class="footer-link-text">Premiere Pro</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href={`${window.location.href}/Photoshop-Templates-67365d008c2f3f39f73e2d02/GAMING-THUMBNAIL'S-67371075f28bba4b5ad08e4f`} target="_blank"   class="footer-link">
+                                    <a href={`${window.location.host}/Photoshop-Templates-67365d008c2f3f39f73e2d02/GAMING-THUMBNAIL'S-67371075f28bba4b5ad08e4f`} target="_blank"   class="footer-link">
                                         <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                         <span class="footer-link-text">Photoshop</span>
@@ -130,7 +173,7 @@ const Footer = () => {
                                 </li>
 
                                 <li>
-                                    <a href={`${window.location.href}/Davinci-Resolve-Templates-6737a49d6a02825477b37c64/CINEMATIC-TITLE'S-6737a4ad6a02825477b37c69`} target="_blank" class="footer-link">
+                                    <a href={`${window.location.host}/Davinci-Resolve-Templates-6737a49d6a02825477b37c64/CINEMATIC-TITLE'S-6737a4ad6a02825477b37c69`} target="_blank" class="footer-link">
                                         <ion-icon name="chevron-forward-outline"></ion-icon>
 
                                         <span class="footer-link-text">Davinci Resolve </span>
@@ -152,13 +195,13 @@ const Footer = () => {
                             "Shop Anytime, Support Every Time – 24/7 Assistance at Your Fingertips!" </p>
 
                         <form action="" class="newsletter-form">
-                        <button 
-                          className="whatsapp-button"
-                          onClick={handleWhatsAppRedirect}
-                        >
-                          <FaWhatsapp size={25}/>
-                          <label style={{marginLeft:"10px"}}>Contact on WhatsApp</label>
-                        </button>
+                            <button 
+                            className="whatsapp-button"
+                            onClick={handleWhatsAppRedirect}
+                            >
+                                <FaWhatsapp size={25}/>
+                                <label style={{marginLeft:"10px",cursor:"pointer"}}>Contact on WhatsApp</label>
+                            </button>
                         </form>
 
 

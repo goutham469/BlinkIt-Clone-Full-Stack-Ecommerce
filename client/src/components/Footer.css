@@ -351,7 +351,7 @@ a.footer-link:is(:hover, :focus) {
      * FOOTER
      */
     .footer-link-box {
-        grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
-        gap: 50px;
+        grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr;
+        gap: 10px;
     }
 }

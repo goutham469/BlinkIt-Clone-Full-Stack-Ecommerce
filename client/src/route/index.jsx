@@ -26,6 +26,11 @@ import Cancel from "../pages/Cancel";
 import AllPayments from "../components/AllPayments";
 import AllUsers from "../components/AllUsers";
 import ProductMetrics from "../components/ProductMetrics";
+import License from "../custom/License";
+import Info from "../custom/Info";
+import ContactUs from "../custom/ContactUs";
+import Cookies from "../custom/Cookies";
+import PrivacyPolicy from "../custom/PrivacyPolicy";
 
 const router = createBrowserRouter([
     {
@@ -63,6 +68,22 @@ const router = createBrowserRouter([
             {
                 path : "user",
                 element : <UserMenuMobile/>
+            },
+            {
+                path:'license',
+                element:<License/>
+            },
+            {
+                path:'contact-us',
+                element:<ContactUs/>
+            },
+            {
+                path:'cookies',
+                element:<Cookies/>
+            },
+            {
+                path:'privacy-policy',
+                element:<PrivacyPolicy/>
             },
             {
                 path : "dashboard", 

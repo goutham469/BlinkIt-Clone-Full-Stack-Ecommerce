@@ -132,7 +132,10 @@ const ProductDisplayPage = () => {
   useEffect(()=>{
     fetchProductDetails()
     
-
+    window.scroll({
+      top:0,
+      animation:"smooth"
+    })
   },[params])
 
   

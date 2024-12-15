@@ -122,12 +122,14 @@ function ContactUs() {
             >
               Submit
             </button>
+
+            
           </form>
         </div>
 
         {/* Social Media Links Card */}
         <div className="w-full md:w-96 bg-white shadow-lg rounded-lg p-6 mt-4">
-          <h2 className="text-center text-gray-800 font-bold mb-4 text-xl">Social Links</h2>
+          <h2 className="text-center text-gray-800 font-bold mb-4 text-xl"><label style={{textTransform:"uppercase"}}>Social Links</label></h2>
           <div className="flex justify-center space-x-6">
 
 
@@ -135,7 +137,7 @@ function ContactUs() {
             {[
               { icon: <FaFacebookF />, color: "text-blue-600" , link:"https://www.facebook.com/sanjay.attelli" } ,
               { icon: <FaXTwitter/>, color: "text-black-400" ,  link:"https://twitter.com/SanjayAttelli"},
-              { icon: <FaInstagram />, color: "text-pink-500" ,  link:"https://www.instagram.com/editwithsanjay/"},
+              { icon: <FaInstagram />, color: "text-red-600" ,  link:"https://www.instagram.com/editwithsanjay/"},
               { icon: <FaLinkedin />, color: "text-blue-600" ,  link:"https://www.linkedin.com/in/attelli-sanjay-kumar/" },
               { icon: <FaBehanceSquare />, color: "text-blue-600" ,  link:"https://www.behance.net/attellisanjay/" },
             ].map((social, idx) => (
@@ -155,9 +157,9 @@ function ContactUs() {
 
           <div className="footer-list mt-6 text-center">
             <p  style={{fontSize:"20px",fontWeight:"700"}}>WhatsApp</p>
-            <p className="text-left m-2">
-              "Shop Anytime, Support Every Time – 24/7 Assistance at Your
-              Fingertips!"
+            <p style={{fontSize:"12px",textAlign:"left",margin:"5px"}}>
+              Shop Anytime, Support Every Time – 24/7 Assistance at Your
+              Fingertips!
             </p>
             <button
               className="whatsapp-button"
@@ -169,6 +171,14 @@ function ContactUs() {
               </label>
             </button>
           </div>
+
+
+
+          <b>Note : </b>
+          <p style={{fontSize:"12px"}}>
+              We're doing our best to answer in 3 business days.
+              Please avoid to report about same problem again in that period.
+            </p>
 
 
         </div>

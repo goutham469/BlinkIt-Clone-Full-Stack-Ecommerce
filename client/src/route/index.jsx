@@ -32,6 +32,7 @@ import ContactUs from "../custom/ContactUs";
 import Cookies from "../custom/Cookies";
 import PrivacyPolicy from "../custom/PrivacyPolicy";
 import ContactUsTickets from "../components/ContactUsTickets";
+import Sales from "../components/Sales";
 
 const router = createBrowserRouter([
     {
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
                     {
                         path:'tickets',
                         element:<AdminPermision><ContactUsTickets /></AdminPermision>
+                    },
+                    {
+                        path:'sales',
+                        element:<AdminPermision><Sales /></AdminPermision>
                     }
                 ]
             },

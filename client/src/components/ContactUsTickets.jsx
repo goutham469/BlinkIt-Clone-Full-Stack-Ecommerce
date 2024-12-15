@@ -76,11 +76,14 @@ function Ticket({ticket})
     async function deleteTicket()
     {
       let data = await fetch(`${baseURL}/api/survey/deleteTicket`,{
-        id : ticket._id
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({id : ticket._id})
       })
 
       if(data.ok){
         toast.success("ticket deleted successfully .")
+        location.reload(true);
       }else{
         toast.error("failed to delete ticket.")
       }

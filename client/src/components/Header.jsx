@@ -11,6 +11,7 @@ import UserMenu from './UserMenu';
 import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees';
 import { useGlobalContext } from '../provider/GlobalProvider';
 import DisplayCartItem from './DisplayCartItem';
+import { IoMdMenu } from 'react-icons/io';
 
 const Header = () => {
     const [ isMobile ] = useMobile()
@@ -91,7 +92,7 @@ const Header = () => {
                                 <div className=''>
                                     {/**user icons display in only mobile version**/}
                                     <button className='text-neutral-600 lg:hidden' onClick={handleMobileUser}>
-                                        <FaRegCircleUser size={26}/>
+                                        <IoMdMenu size={26}/>
                                     </button>
 
                                       {/**Desktop**/}

@@ -3,7 +3,7 @@ import React from 'react';
 const License = () => {
   return (
     <div className="p-6 max-w-4xl mx-auto text-gray-800">
-      <h1 className="text-3xl font-bold mb-4">Regular License</h1>
+      <h1 className="text-3xl font-bold mb-4" >Regular License</h1>
 
       <section className="mb-6">
         <p className="mb-2">

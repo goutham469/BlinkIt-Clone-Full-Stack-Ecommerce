@@ -13,6 +13,16 @@ const handleWhatsAppRedirect = () => {
   window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
 };
 
+function scrollUp()
+{
+  window.scroll(
+    {
+      top:0,
+      animation:'smooth'
+    }
+  )
+}
+
 const Footer = () => {
   return (
     <footer className="footer">
@@ -59,17 +69,17 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contact-us" className="footer-link">
+                <Link to="/contact-us" onClick={()=>scrollUp()} className="footer-link">
                   <span className="footer-link-text">Contact Us</span>
                 </Link>
               </li>
               <li>
-                <Link to="/cookies" className="footer-link">
+                <Link to="/cookies" onClick={()=>scrollUp()} className="footer-link">
                   <span className="footer-link-text">Cookies</span>
                 </Link>
               </li>
               <li>
-                <Link to="/privacy-policy" className="footer-link">
+                <Link to="/privacy-policy" onClick={()=>scrollUp()} className="footer-link">
                   <span className="footer-link-text">Privacy Policy</span>
                 </Link>
               </li>
@@ -81,22 +91,22 @@ const Footer = () => {
                 <p className="footer-list-title">My Account</p>
               </li>
               <li>
-                <Link to="/dashboard/profile" className="footer-link">
+                <Link to="/dashboard/profile" onClick={()=>scrollUp()} className="footer-link">
                   <span className="footer-link-text">My Account</span>
                 </Link>
               </li>
               <li>
-                <Link to="/checkout" className="footer-link">
+                <Link to="/checkout" onClick={()=>scrollUp()} className="footer-link">
                   <span className="footer-link-text">View Cart</span>
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/myorders" className="footer-link">
+                <Link to="/dashboard/myorders" onClick={()=>scrollUp()} className="footer-link">
                   <span className="footer-link-text">My Orders</span>
                 </Link>
               </li>
               <li>
-                <Link to="/new-products" className="footer-link">
+                <Link to="/new-products" onClick={()=>scrollUp()} className="footer-link">
                   <span className="footer-link-text">New Products</span>
                 </Link>
               </li>
@@ -109,6 +119,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/After-Effects-Template's--67365c078c2f3f39f73e2cac/CINEMATIC-TITLE'S-6737a6d76a02825477b37d3b"
+                    onClick={()=>scrollUp()}
                     target="_blank"
                     className="footer-link"
                   >
@@ -118,6 +129,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/Premiere-Pro-Templates-673b6ce9af2ab53e052de8f6/CHANNEL-INTRO'S-673b6db1af2ab53e052de90c"
+                    onClick={()=>scrollUp()}
                     target="_blank"
                     className="footer-link"
                   >
@@ -127,6 +139,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/Photoshop-Templates-67365d008c2f3f39f73e2d02/GAMING-THUMBNAIL'S-67371075f28bba4b5ad08e4f"
+                    onClick={()=>scrollUp()}
                     target="_blank"
                     className="footer-link"
                   >
@@ -136,6 +149,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/Davinci-Resolve-Templates-6737a49d6a02825477b37c64/CINEMATIC-TITLE'S-6737a4ad6a02825477b37c69"
+                    onClick={()=>scrollUp()}
                     target="_blank"
                     className="footer-link"
                   >

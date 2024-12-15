@@ -68,3 +68,41 @@ Content-Type: application/json
     }
   ]
 }
+
+###
+POST http://localhost:4000/api/survey/submitForm
+Content-Type: application/json
+
+{
+  "name":"goutham",
+  "email":"gouth@gmail.com",
+  "mobile":"9398141936",
+  "issue":"website so bad."
+}
+###
+POST http://localhost:4000/api/survey/deleteTicket
+Content-Type: application/json
+
+{
+  "id":"675e96ce11f3a31bff0e2c67"
+}
+###
+POST http://localhost:4000/api/product/get
+Content-Type: application/json
+
+{
+  "search":"thor"
+}
+###
+POST http://localhost:4000/api/subcategory/get
+Content-Type: application/json
+
+{
+  "name":"Premiere Pro Templates"
+}
+###
+POST http://localhost:4000/api/subcategory/get
+Content-Type: application/json
+
+{
+}

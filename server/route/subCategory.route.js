@@ -9,4 +9,4 @@ subCategoryRouter.post('/get',getSubCategoryController)
 subCategoryRouter.put('/update',auth,updateSubCategoryController)
 subCategoryRouter.delete('/delete',auth,deleteSubCategoryController)
 
-export default subCategoryRouter
+export default subCategoryRouter 

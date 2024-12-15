@@ -56,7 +56,7 @@ export const createProductController = async(request,response)=>{
 
 export const getProductController = async(request,response)=>{
     try {
-        
+         
         let { page, limit, search } = request.body 
 
         if(!page){
@@ -67,9 +67,11 @@ export const getProductController = async(request,response)=>{
             limit = 10
         }
 
+        let queryString = new RegExp(search , 'i');
+
         const query = search ? {
-            $text : {
-                $search : search
+            name : {
+                $regex : queryString
             }
         } : {}
 
@@ -340,10 +342,10 @@ export const searchProduct = async(request,response)=>{
             limit  = 10
         }
 
+        let queryString = new RegExp(search , 'i');
+
         const query = search ? {
-            $text : {
-                $search : search
-            }
+            name : { $regex : queryString }
         } : {}
 
         const skip = ( page - 1) * limit
@@ -366,6 +368,7 @@ export const searchProduct = async(request,response)=>{
 
 
     } catch (error) {
+        console.log(error)
         return response.status(500).json({
             message : error.message || error,
             error : true,

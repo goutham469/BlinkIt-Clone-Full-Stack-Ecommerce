@@ -1,240 +1,189 @@
 import React from "react";
-import './Footer.css'
-import logoIcon from '../assets/logo.png'
+import { Link } from "react-router-dom"; // React Router for navigation
+import "./Footer.css";
+import logoIcon from "../assets/logo.png";
 import { FaWhatsapp } from "react-icons/fa6";
 import Version from "./Version";
 
-export const Client_URL = import.meta.env.VITE_CLIENT_URL;
+// WhatsApp redirection handler
+const handleWhatsAppRedirect = () => {
+  const phoneNumber = "918977300290";
+  const message = "Hello, I would like to know more about your services.";
+  const encodedMessage = encodeURIComponent(message);
+  window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+};
 
 const Footer = () => {
-
-  const handleWhatsAppRedirect = () => {
-    const phoneNumber = '918977300290';
-    const message = 'Hello, I would like to know more about your services.';
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}` , "_blank")
-  }; 
-
-  
-
   return (
-    <footer class="footer">
-        <div class="footer-top section">
-            <div class="container">
- 
+    <footer className="footer">
+      <div className="footer-top section">
+        <div className="container">
+          <div className="footer-link-box">
+            {/* Contact Us Section */}
+            <ul className="footer-list">
+              <li>
+                <p className="footer-list-title">Contact Us</p>
+              </li>
+              <li>
+                <address className="footer-link">
+                  <span className="footer-link-text">
+                    Hyderabad, Telangana, INDIA
+                  </span>
+                </address>
+              </li>
+              <li>
+                <a href="tel:+918977300290" target="_blank" className="footer-link">
+                  <span className="footer-link-text">+91 89773 00290</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:attellisanjaykumar29@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-link"
+                >
+                  <span className="footer-link-text">editwithsanjay@gmail.com</span>
+                </a>
+              </li>
+            </ul>
 
-                <div class="footer-link-box">
+            {/* Info Section */}
+            <ul className="footer-list">
+              <li>
+                <p className="footer-list-title">Info</p>
+              </li>
+              <li>
+                <Link to="/license" className="footer-link">
+                  <span className="footer-link-text">License</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact-us" className="footer-link">
+                  <span className="footer-link-text">Contact Us</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/cookies" className="footer-link">
+                  <span className="footer-link-text">Cookies</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy-policy" className="footer-link">
+                  <span className="footer-link-text">Privacy Policy</span>
+                </Link>
+              </li>
+            </ul>
 
-                    <ul class="footer-list">
+            {/* My Account Section */}
+            <ul className="footer-list">
+              <li>
+                <p className="footer-list-title">My Account</p>
+              </li>
+              <li>
+                <Link to="/dashboard/profile" className="footer-link">
+                  <span className="footer-link-text">My Account</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/checkout" className="footer-link">
+                  <span className="footer-link-text">View Cart</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/myorders" className="footer-link">
+                  <span className="footer-link-text">My Orders</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/new-products" className="footer-link">
+                  <span className="footer-link-text">New Products</span>
+                </Link>
+              </li>
+            </ul>
 
-                        <li>
-                            <p class="footer-list-title">Contact Us</p>
-                        </li>
-
-                        <li>
-                            <address class="footer-link">
-                                <ion-icon name="location"></ion-icon>
-
-                                <span class="footer-link-text">
-                                    Hyderabad,Telangana,INDIA
-                                </span>
-                            </address>
-                        </li>
-
-                        <li>
-                            <a href="tel:+918977300290" target="_blank" class="footer-link">
-                                <ion-icon name="call"></ion-icon>
-
-                                <span class="footer-link-text">+91 89773 00290</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="mailto:attellisanjaykumar29@gmail.com" target="_blank" class="footer-link">
-                                <ion-icon name="mail"></ion-icon>
-
-                                <span class="footer-link-text">editwithsanjay@gmail.com</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-
-                    <ul class="footer-list">
-
-                        <li>
-                            <p class="footer-list-title">Info </p>
-                        </li>
-
-                        <li>
-                            <a href={`${window.location.host}/license`}  class="footer-link">
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                <span class="footer-link-text"> License 
-                                </span>
-                            </a>
-                        </li>
-                        
-
-                        <li>
-                            <a href={`${window.location.host}/contact-us`}  class="footer-link">
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                <span class="footer-link-text"> Contact Us 
-                                </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a  href={`${window.location.host}/cookies`} class="footer-link">
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                <span class="footer-link-text">Cookies </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a  href={`${window.location.host}/privacy-policy`} class="footer-link">
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                <span class="footer-link-text"> Privacy Policy </span>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <ul class="footer-list">
-
-                        <li>
-                            <p class="footer-list-title">My Account</p>
-                        </li>
-
-                        <li>
-                            <a href={`${window.location.host}/dashboard/profile`}  class="footer-link">
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                <span class="footer-link-text">My Account</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a  href={`${window.location.host}/checkout`} class="footer-link">
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                <span class="footer-link-text">View Cart</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href={`${window.location.host}/dashboard/myorders`}    class="footer-link">
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                <span class="footer-link-text">My Orders</span>
-                            </a>
-                        </li>
-
-
-                        <li>
-                            <a href="#" class="footer-link">
-                                <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                <span class="footer-link-text">New Products</span>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                    <div class="footer-list">
-
-                        <p class="footer-list-title">Categories</p>
-
-                        <table class="footer-table">
-                            <tbody>
-                                <li>
-                                    <a href={`${window.location.host}/After-Effects-Template's--67365c078c2f3f39f73e2cac/CINEMATIC-TITLE'S-6737a6d76a02825477b37d3b`} target="_blank" class="footer-link">
-                                        <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                        <span class="footer-link-text">After Effects</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href={`${window.location.host}/Premiere-Pro-Templates-673b6ce9af2ab53e052de8f6/CHANNEL-INTRO'S-673b6db1af2ab53e052de90c`} target="_blank" class="footer-link">
-                                        <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                        <span class="footer-link-text">Premiere Pro</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href={`${window.location.host}/Photoshop-Templates-67365d008c2f3f39f73e2d02/GAMING-THUMBNAIL'S-67371075f28bba4b5ad08e4f`} target="_blank"   class="footer-link">
-                                        <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                        <span class="footer-link-text">Photoshop</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href={`${window.location.host}/Davinci-Resolve-Templates-6737a49d6a02825477b37c64/CINEMATIC-TITLE'S-6737a4ad6a02825477b37c69`} target="_blank" class="footer-link">
-                                        <ion-icon name="chevron-forward-outline"></ion-icon>
-
-                                        <span class="footer-link-text">Davinci Resolve </span>
-                                    </a>
-                                </li>
-
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                    <div class="footer-list">
-
-                        <p class="footer-list-title">Whatsapp</p>
-
-                        <p class="newsletter-text">
-                            "Shop Anytime, Support Every Time – 24/7 Assistance at Your Fingertips!" </p>
-
-                        <form action="" class="newsletter-form">
-                            <button 
-                            className="whatsapp-button"
-                            onClick={handleWhatsAppRedirect}
-                            >
-                                <FaWhatsapp size={25}/>
-                                <label style={{marginLeft:"10px",cursor:"pointer"}}>Contact on WhatsApp</label>
-                            </button>
-                        </form>
-
-
-                    </div>
-
-                </div>
-
+            {/* Categories Section */}
+            <div className="footer-list">
+              <p className="footer-list-title">Categories</p>
+              <ul>
+                <li>
+                  <Link
+                    to="/After-Effects-Template's--67365c078c2f3f39f73e2cac/CINEMATIC-TITLE'S-6737a6d76a02825477b37d3b"
+                    target="_blank"
+                    className="footer-link"
+                  >
+                    <span className="footer-link-text">After Effects</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/Premiere-Pro-Templates-673b6ce9af2ab53e052de8f6/CHANNEL-INTRO'S-673b6db1af2ab53e052de90c"
+                    target="_blank"
+                    className="footer-link"
+                  >
+                    <span className="footer-link-text">Premiere Pro</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/Photoshop-Templates-67365d008c2f3f39f73e2d02/GAMING-THUMBNAIL'S-67371075f28bba4b5ad08e4f"
+                    target="_blank"
+                    className="footer-link"
+                  >
+                    <span className="footer-link-text">Photoshop</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/Davinci-Resolve-Templates-6737a49d6a02825477b37c64/CINEMATIC-TITLE'S-6737a4ad6a02825477b37c69"
+                    target="_blank"
+                    className="footer-link"
+                  >
+                    <span className="footer-link-text">Davinci Resolve</span>
+                  </Link>
+                </li>
+              </ul>
             </div>
-        </div>
 
-        <div class="footer-bottom">
-            <div class="container">
-
-              
-
-                <p class="copyright">
-                    &copy; 2024 <a href="#" class="copyright-link">@editwithsanjay</a>. All Rights Reserved
-                </p>
-
-                <Version/>
-
-                
-
-
+            {/* WhatsApp Section */}
+            <div className="footer-list">
+              <p className="footer-list-title">WhatsApp</p>
+              <p className="newsletter-text">
+                "Shop Anytime, Support Every Time – 24/7 Assistance at Your
+                Fingertips!"
+              </p>
+              <button
+                className="whatsapp-button"
+                onClick={handleWhatsAppRedirect}
+              >
+                <FaWhatsapp size={25} />
+                <label style={{ marginLeft: "10px", cursor: "pointer" }}>
+                  Contact on WhatsApp
+                </label>
+              </button>
             </div>
+          </div>
         </div>
+      </div>
 
+      {/* Footer Bottom Section */}
+      <div className="footer-bottom">
+        <div className="container">
+          <p className="copyright">
+            &copy; 2024{" "}
+            <a href="#" className="copyright-link">
+              @editwithsanjay
+            </a>
+            . All Rights Reserved
+          </p>
+          <Version />
+        </div>
+      </div>
     </footer>
-    )
+  );
 };
 
 export default Footer;
-
 
 
 

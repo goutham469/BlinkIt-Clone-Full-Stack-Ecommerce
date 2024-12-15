@@ -3,8 +3,8 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config()
 import cookieParser from 'cookie-parser'
-import morgan from 'morgan'
-import helmet from 'helmet'
+// import morgan from 'morgan'
+// import helmet from 'helmet'
 import connectDB from './config/connectDB.js'
 import userRouter from './route/user.route.js'
 import categoryRouter from './route/category.route.js'
@@ -15,6 +15,8 @@ import cartRouter from './route/cart.route.js'
 import addressRouter from './route/address.route.js'
 import orderRouter from './route/order.route.js'
 import surveyRouter from './route/survey.route.js'
+
+// const serverless = require('serverless-http');
 
 const app = express()
 
@@ -27,16 +29,16 @@ app.use(cors({ origin: process.env.FRONTEND_URL , credentials: true }))
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(morgan())
-app.use(helmet({
-    crossOriginResourcePolicy : false
-}))
+// app.use(morgan())
+// app.use(helmet({
+//     crossOriginResourcePolicy : false
+// }))
 
 const PORT = process.env.PORT || 8080
 
 app.get("/",(request,response)=>{
     ///server to client
-    console.log("new request came from ",request.ip)
+    // console.log("new request came from ",request.ip)
     response.json({
         message : "Server is running " + PORT
     })
@@ -83,9 +85,15 @@ connectDB().then(()=>{
         console.log("key changes : ")
         console.log("1.Login route for Google OAuth added ")
 
+        console.log("\nversion : 1.7")
+        console.log("key changes : ")
+        console.log("1.metrics and form pop up added ")
+        
+
         console.log("ok")
 
         
     })
 })
 
+// module.exports.handler = serverless(app);

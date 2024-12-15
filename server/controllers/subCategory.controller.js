@@ -39,13 +39,43 @@ export const AddSubCategoryController = async(request,response)=>{
 
 export const getSubCategoryController = async(request,response)=>{
     try {
-        const data = await SubCategoryModel.find().sort({createdAt : -1}).populate('category')
-        return response.json({
-            message : "Sub Category data",
-            data : data,
-            error : false,
-            success : true
-        })
+
+        if(request.body.name)
+        {
+            let data = await SubCategoryModel.find().sort({createdAt : -1}).populate('category')
+
+            console.log("47",data[0].category);
+
+            data = data.filter((subCategory)=>{
+                let status = false;
+                
+                subCategory.category.forEach((category)=>{
+                    if(category.name == request.body.name){
+                        status = true;
+                        return; 
+                    }
+                })
+                return status;
+            })
+            console.log(data);
+
+            return response.json({
+                message : "Sub Category data",
+                data : data,
+                error : false,
+                success : true
+            })
+        }
+        else
+        {
+            const data = await SubCategoryModel.find().sort({createdAt : -1}).populate('category')
+            return response.json({
+                message : "Sub Category data",
+                data : data,
+                error : false,
+                success : true
+            })
+        }
     } catch (error) {
         return response.status(500).json({
             message : error.message || error,

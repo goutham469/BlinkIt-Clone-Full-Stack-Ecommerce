@@ -4,7 +4,7 @@ import OrderModel from "../models/order.model.js";
 import UserModel from "../models/user.model.js";
 import mongoose from "mongoose";
 import Razorpay from "razorpay";
-import { ObjectId } from "mongodb";
+import { ObjectId } from "mongoose";
 
  export async function CashOnDeliveryOrderController(request,response){
 

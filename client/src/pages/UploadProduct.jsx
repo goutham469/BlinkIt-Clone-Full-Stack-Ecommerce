@@ -12,6 +12,7 @@ import SummaryApi from '../common/SummaryApi';
 import AxiosToastError from '../utils/AxiosToastError';
 import successAlert from '../utils/SuccessAlert';
 import { useEffect } from 'react';
+import { baseURL } from '../App';
 
 const UploadProduct = () => {
   const [data,setData] = useState({
@@ -31,10 +32,31 @@ const UploadProduct = () => {
   const allCategory = useSelector(state => state.product.allCategory)
   const [selectCategory,setSelectCategory] = useState("")
   const [selectSubCategory,setSelectSubCategory] = useState("")
-  const allSubCategory = useSelector(state => state.product.allSubCategory)
+  const [allSubCategory, setAllSubCategory] = useState(useSelector(state => state.product.allSubCategory))
 
   const [openAddField,setOpenAddField] = useState(false)
   const [fieldName,setFieldName] = useState("")
+
+
+  async function getSubCategeries( cat )
+  {
+    console.log(cat);
+
+    let response = await fetch(`${baseURL}/api/subcategory/get`,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body : JSON.stringify({ name:cat.name })
+    })
+
+    if(response.ok){
+
+      response = await response.json();
+
+      console.log(response);
+
+      setAllSubCategory(response.data)
+    }
+  }
 
 
   const handleChange = (e)=>{
@@ -242,6 +264,7 @@ const UploadProduct = () => {
                             category : [...preve.category,category],
                           }
                         })
+                        getSubCategeries( category );
                         setSelectCategory("")
                       }}
                     >

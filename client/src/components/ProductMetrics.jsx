@@ -12,6 +12,8 @@ import {
 import { Pie, Bar } from 'react-chartjs-2'; // Import required chart components
 import { baseURL } from '../common/SummaryApi'; // Import the baseURL from your API utilities
 
+export const Client_URL = import.meta.env.VITE_CLIENT_URL;
+
 // Register the components with Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
@@ -62,7 +64,7 @@ function MetricsTable({ metrics }) {
                     {metrics.map((item) => (
                         <tr key={item._id.$oid} className="hover:bg-gray-100">
                             <td className="border px-4 py-2">
-                                <a href={`${baseURL}/product/${item.productId}`}   target="_blank">{item.productId}</a>
+                                <a href={`${Client_URL}/product/${item.productId}`}   target="_blank">{item.productId}</a>
                             </td>
                             <td className="border px-4 py-2">{item.views}</td>
                             <td className="border px-4 py-2">{item.users.length}</td>
@@ -78,6 +80,10 @@ function MetricsTable({ metrics }) {
 
 // **ViewsPieChart Component**
 function ViewsPieChart({ metrics }) {
+    
+    const [collapse , setCollapse] = useState(true);
+
+
     const data = {
         labels: metrics.map((item) => item.productId),
         datasets: [
@@ -100,13 +106,29 @@ function ViewsPieChart({ metrics }) {
     return (
         <div className="chart-container">
             <h2 className="text-xl font-bold mb-4">Views Distribution (Pie Chart)</h2>
-            <Pie data={data} options={options} />
+            
+            {
+                collapse ?
+                <div>
+                    <button onClick={()=>setCollapse(collapse?false:true)}   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  >Show Pie Chart</button>
+                </div>
+                :
+                <div>
+                    <button onClick={()=>setCollapse(collapse?false:true)}   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  >Collapse</button>
+                    <Pie data={data} options={options} />
+                </div>
+            }
+
         </div>
     );
 }
 
 // **ProductBarChart Component**
 function ProductBarChart({ metrics }) {
+
+    const [collapse , setCollapse] = useState(true);
+
+
     const data = {
         labels: metrics.map((item) => item.productId),
         datasets: [
@@ -142,7 +164,20 @@ function ProductBarChart({ metrics }) {
     return (
         <div className="chart-container">
             <h2 className="text-xl font-bold mb-4">Product Views (Bar Chart)</h2>
-            <Bar data={data} options={options} />
+         
+
+            {
+                collapse ?
+                <div>
+                    <button onClick={()=>setCollapse(collapse?false:true)}   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  >Show Bar Chart</button>
+                </div>
+                :
+                <div>
+                    <button onClick={()=>setCollapse(collapse?false:true)}   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  >Collapse</button>
+                    <Bar data={data} options={options} />
+                </div>
+            }
+
         </div>
     );
 }
@@ -166,11 +201,11 @@ function SummaryStats({ metrics }) {
     return (
         <div className="grid grid-cols-3 gap-4">
             <div className="stat-card p-4 bg-blue-100 rounded shadow">
-                <h3 className="text-lg font-bold">Total Products</h3>
+                <h3 className="text-lg font-bold">Total Products visited</h3>
                 <p className="text-2xl">{totalProducts}</p>
             </div>
             <div className="stat-card p-4 bg-blue-100 rounded shadow">
-                <h3 className="text-lg font-bold">Total Active Users</h3>
+                <h3 className="text-lg font-bold">Active cart users</h3>
                 <p className="text-2xl">{userIds.size}</p>
             </div>
             <div className="stat-card p-4 bg-green-100 rounded shadow">

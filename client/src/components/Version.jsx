@@ -33,22 +33,22 @@ function Version() {
             data : ['Feed back form for remove cart added' , 'admin dashboard for metrics added' , 'product page opened , tracking of metrics']
         },
         {
-            version:'1.10',
-            data : [ 'search functionality updated' , 'AWS Lambda cold starts updated.'  , 'banner image for both Mobile and Desktop size reduced.' ]
+            version:'2.0',
+            data : [ 'search functionality updated' , 'AWS Lambda cold starts updated.'  , 'banner image for both Mobile and Desktop size reduced.'  , 'search for admin product updated' , 'Sub categories filters updated' , 'footer page all changes made' , 'main page category displayed.']
         }
     ]
     const user = useSelector((state)=> state.user)
 
     const cur_version = {
-                            version:'1.10',
-                            data : [ 'search functionality updated' , 'AWS Lambda cold starts updated.'  , 'banner image for both Mobile and Desktop size reduced.' ]
+                            version:'2.0',
+                            data : [ 'search functionality updated' , 'AWS Lambda cold starts updated.'  , 'banner image for both Mobile and Desktop size reduced.'  , 'search for admin product updated' , 'Sub categories filters updated' , 'footer page all changes made' , 'main page category displayed.']
                         }
 
     console.log(versions)
   return (
     <div style={{fontSize:"12px",color:"white"}}>
         <center>
-            <b>version : {cur_version.version}. Last updated on 23-11-2024</b>
+            <b>version : {cur_version.version}. Last updated on 15-12-2024</b>
         </center>
          
         <div style={{textAlign:"left"}}>

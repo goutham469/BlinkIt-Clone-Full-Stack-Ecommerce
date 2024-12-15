@@ -31,6 +31,7 @@ import Info from "../custom/Info";
 import ContactUs from "../custom/ContactUs";
 import Cookies from "../custom/Cookies";
 import PrivacyPolicy from "../custom/PrivacyPolicy";
+import ContactUsTickets from "../components/ContactUsTickets";
 
 const router = createBrowserRouter([
     {
@@ -128,6 +129,10 @@ const router = createBrowserRouter([
                     {
                         path:'metrics',
                         element : <AdminPermision><ProductMetrics /></AdminPermision>
+                    },
+                    {
+                        path:'tickets',
+                        element:<AdminPermision><ContactUsTickets /></AdminPermision>
                     }
                 ]
             },

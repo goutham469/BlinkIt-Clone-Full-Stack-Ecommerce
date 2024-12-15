@@ -79,7 +79,7 @@ const Cookies = () => {
           We may update this Cookie Policy from time to time and will take reasonable steps to inform our users of these changes. You can track updates by referring to the date below.
         </p>
         <p className="mb-2">
-          If you have any questions about our privacy practices or need assistance in managing your cookie preferences, please contact us at <a href="add link of contact page" className="text-blue-500 underline">Contact Us</a>.
+          If you have any questions about our privacy practices or need assistance in managing your cookie preferences, please contact us at <a href="/contact-us" className="text-blue-500 underline">Contact Us</a>.
         </p>
         <p className="mb-2 font-semibold">Updated: 16 December 2024</p>
       </section>
@@ -88,3 +88,5 @@ const Cookies = () => {
 };
 
 export default Cookies;
+
+

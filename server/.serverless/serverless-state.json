@@ -103,7 +103,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-ap-south-1-8deec114-3972",
-                "S3Key": "serverless/e-commerce-sanjay/dev/1734186541765-2024-12-14T14:29:01.765Z/e-commerce-sanjay.zip"
+                "S3Key": "serverless/e-commerce-sanjay/dev/1734264259295-2024-12-15T12:04:19.295Z/e-commerce-sanjay.zip"
               },
               "Handler": "app.handler",
               "Runtime": "nodejs18.x",
@@ -121,14 +121,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionTgkiyDkB4HpnVQcnSLYpwWJirG0Wq1pcOv1xn3mNIs": {
+          "AppLambdaVersionPTG7Xmen6ULeu7rldVmNHc3ejCihb2vSKzP92NSomQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "PgnQpk2ZWg1BQ4H8LMHh0vHaZmQZW8phdI3NLYjtEj8="
+              "CodeSha256": "CMsmQzTpSgHXkQ2+VrSOMkcqkf9apWtJ/AWr7/5f+GY="
             }
           },
           "ApiGatewayRestApi": {
@@ -253,7 +253,7 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1734186531379": {
+          "ApiGatewayDeployment1734264252202": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -314,7 +314,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionTgkiyDkB4HpnVQcnSLYpwWJirG0Wq1pcOv1xn3mNIs"
+              "Ref": "AppLambdaVersionPTG7Xmen6ULeu7rldVmNHc3ejCihb2vSKzP92NSomQ"
             },
             "Export": {
               "Name": "sls-e-commerce-sanjay-dev-AppLambdaFunctionQualifiedArn"
@@ -369,7 +369,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionTgkiyDkB4HpnVQcnSLYpwWJirG0Wq1pcOv1xn3mNIs"
+        "versionLogicalId": "AppLambdaVersionPTG7Xmen6ULeu7rldVmNHc3ejCihb2vSKzP92NSomQ"
       }
     },
     "configValidationMode": "warn",
@@ -393,7 +393,7 @@
     "artifact": "D:\\production\\ecommerce\\code3\\server\\.serverless\\e-commerce-sanjay.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/e-commerce-sanjay/dev/1734186541765-2024-12-14T14:29:01.765Z",
+    "artifactDirectoryName": "serverless/e-commerce-sanjay/dev/1734264259295-2024-12-15T12:04:19.295Z",
     "artifact": "e-commerce-sanjay.zip"
   }
 }

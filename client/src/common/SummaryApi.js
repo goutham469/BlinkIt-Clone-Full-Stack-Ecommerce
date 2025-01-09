@@ -1,5 +1,6 @@
 // export const baseURL = process.env.REACT_APP_SERVER_URL`
 export const baseURL = import.meta.env.VITE_SERVER_URL;
+export const clientURL = import.meta.env.VITE_CLIENT_URL
 // export const baseURL = 'https://blinkit-clone-full-stack-ecommerce.onrender.com'
 
 const SummaryApi = {
@@ -166,6 +167,10 @@ const SummaryApi = {
     all_payments:{
         url :'api/order/all-orders',
         method : 'post'
+    },
+    cashfree_initiate:{
+        url:'/api/order/create-order-cashfree',
+        method:'post'
     }
 }
 

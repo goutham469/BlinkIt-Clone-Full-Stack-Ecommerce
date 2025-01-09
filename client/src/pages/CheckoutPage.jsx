@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import RazorpayPaymentButton from '../components/RazorpayPaymentButton '
 
 import sale from '../assets/sale.png'
+import CreateCashFreeOrder from '../components/CreateCashFreeOrder'
 
 const CheckoutPage = () => {
   const { notDiscountTotalPrice, totalPrice, totalQty, fetchCartItem,fetchOrder } = useGlobalContext()
@@ -134,13 +135,24 @@ const CheckoutPage = () => {
 
             {
               formData&&formData.email&&formData.phone&&formData.submit?
-              <RazorpayPaymentButton  
-                  list_items={cartItemsList}
-                  addressId={addressList[selectAddress]?._id}
-                  subTotalAmt={totalPrice}
-                  totalAmt={totalPrice}
-                  userDetails={formData}
-              />
+              <div style={{textAlign:"center"}}>
+                <RazorpayPaymentButton  
+                    list_items={cartItemsList}
+                    addressId={addressList[selectAddress]?._id}
+                    subTotalAmt={totalPrice}
+                    totalAmt={totalPrice}
+                    userDetails={formData}
+                />
+                <br/>
+                <br/>
+                <CreateCashFreeOrder
+                    list_items={cartItemsList}
+                    addressId={addressList[selectAddress]?._id}
+                    subTotalAmt={totalPrice}
+                    totalAmt={totalPrice}
+                    userDetails={formData} 
+                />
+              </div>
               :
               <form
                 onSubmit={(e) => {

@@ -1,5 +1,5 @@
 import { load } from "@cashfreepayments/cashfree-js";
-import { clientURL } from "../common/SummaryApi";
+import { baseURL, clientURL } from "../common/SummaryApi";
 
 function Checkout( { payment_id } ) {
     let cashfree;
@@ -27,8 +27,24 @@ function Checkout( { payment_id } ) {
     };
 
     const handlePaymentSuccess = async ( payment_id) => {
-      alert(`payment_id = ${payment_id}`)
+      // alert(`payment_id = ${payment_id}`)
+
+      let verify_payment = await fetch(`${baseURL}/api/order/verify-payment`,{
+                          method:"POST",
+                          headers:{"Content-Type":"application/json"},
+                          body:JSON.stringify({orderId:payment_id})
+                        })
+      
+        verify_payment = await verify_payment.json()
+        console.log(verify_payment)
+        if(verify_payment.data.modifiedCount > 0){
+            alert("transaction success.")
+        }else{
+            alert("unauthorized transaction.")
+        }
+
       console.log("every thing is OK !");
+
     }
 
     return (

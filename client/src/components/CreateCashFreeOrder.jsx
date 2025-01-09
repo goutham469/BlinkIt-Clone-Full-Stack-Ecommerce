@@ -48,21 +48,6 @@ function CreateCashFreeOrder( { list_items, addressId, subTotalAmt, totalAmt,use
     }
   return (
     <div>
-        {/* <h1>Create Cash Free Order</h1>
-        {
-            order_generated&&<div>
-                                    <p>{ order_generated&&`paymentid : ${order_generated}` }</p>
-                                    <Checkout  payment_id={order_generated} />
-                            </div>
-       }
-        <form>
-            <input placeholder='amount' type='number' onChange={(e)=>setAmount(e.target.value)}/>
-            <br/>
-            <input placeholder='phone' type='number' onChange={(e)=>setPhone(e.target.value)}/>
-            <br/>
-            <input placeholder='customer Id' type='text' onChange={(e)=>setCustomerId(e.target.value)}/>
-            <br/>
-        </form> */}
         {
             order_generated?
             <Checkout  payment_id={order_generated} />

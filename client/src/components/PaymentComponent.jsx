@@ -13,7 +13,7 @@ function Checkout( { payment_id } ) {
     const doPayment = async () => {
         let checkoutOptions = {
             paymentSessionId: payment_id,
-            redirectTarget: clientURL,
+            redirectTarget: `${clientURL}/cashfree/?orderId=${payment_id}`,
         };
        try{
           cashfree.checkout(checkoutOptions);

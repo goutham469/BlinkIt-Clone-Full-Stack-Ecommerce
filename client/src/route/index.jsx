@@ -33,6 +33,7 @@ import Cookies from "../custom/Cookies";
 import PrivacyPolicy from "../custom/PrivacyPolicy";
 import ContactUsTickets from "../components/ContactUsTickets";
 import Sales from "../components/Sales";
+import ValidatePayment from "../pages/ValidatePayment";
 
 const router = createBrowserRouter([
     {
@@ -171,6 +172,10 @@ const router = createBrowserRouter([
                 element : <Cancel/>
             }
         ]
+    },
+    {
+        path:'cashfree',
+        element:<ValidatePayment/>
     }
 ])
 

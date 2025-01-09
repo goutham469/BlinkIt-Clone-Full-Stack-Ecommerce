@@ -28,6 +28,7 @@ function Checkout( { payment_id } ) {
 
     const handlePaymentSuccess = async ( payment_id) => {
       // alert(`payment_id = ${payment_id}`)
+      alert("payment success function started.")
 
       let verify_payment = await fetch(`${baseURL}/api/order/verify-payment`,{
                           method:"POST",
@@ -36,7 +37,8 @@ function Checkout( { payment_id } ) {
                         })
       
         verify_payment = await verify_payment.json()
-        console.log(verify_payment)
+        console.log("verify_payment : ",verify_payment)
+
         if(verify_payment.data.modifiedCount > 0){
             alert("transaction success.")
         }else{

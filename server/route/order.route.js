@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import auth from '../middleware/auth.js'
-import { CashOnDeliveryOrderController, deleteOrdersController, getAllOrdersController, getOrderDetailsController, grantAccessController, OnlinePaymentOrderController, paymentController, VerifyPaymentController, webhookStripe } from '../controllers/order.controller.js'
+import { CashFreeOnlinePaymentInitiatorController, CashOnDeliveryOrderController, deleteOrdersController, getAllOrdersController, getAllOrdersStatsController, getOrderDetailsController, grantAccessController, OnlinePaymentOrderController, paymentController, VerifyPaymentController, webhookStripe } from '../controllers/order.controller.js'
 
 const orderRouter = Router()
 
@@ -12,7 +12,10 @@ orderRouter.get("/order-list",auth,getOrderDetailsController)
 orderRouter.post('/create-order',auth,OnlinePaymentOrderController)
 orderRouter.post('/verify-payment',VerifyPaymentController)
 
+orderRouter.post('/create-order-cashfree',auth,CashFreeOnlinePaymentInitiatorController)
+
 orderRouter.get('/all-orders',getAllOrdersController)
+orderRouter.get('/sales',getAllOrdersStatsController)
 orderRouter.post('/deletePayment',deleteOrdersController)
 orderRouter.post('/grantAccess' , grantAccessController)
 

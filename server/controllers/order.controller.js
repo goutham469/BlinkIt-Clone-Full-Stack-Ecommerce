@@ -4,6 +4,8 @@ import OrderModel from "../models/order.model.js";
 import UserModel from "../models/user.model.js";
 import mongoose from "mongoose";
 import Razorpay from "razorpay";
+import { Cashfree } from "cashfree-pg"
+
 import { ObjectId } from "mongoose";
 
  export async function CashOnDeliveryOrderController(request,response){
@@ -61,10 +63,11 @@ const razorpay = new Razorpay({
 });
 
 // Create an order with Razorpay and store in the database
-export async function OnlinePaymentOrderController(req, res) {
+export async function OnlinePaymentOrderController(req, res) 
+{
 
-    console.log("\n\nnew payment came : ")
-    console.log(req.body)
+  console.log("\n\nnew payment came : ")
+  console.log(req.body)
   try {
     const userId = req.userId; // authenticated user ID
     const { list_items, totalAmt, addressId, subTotalAmt } = req.body;
@@ -84,6 +87,7 @@ export async function OnlinePaymentOrderController(req, res) {
     });
 
     const orderIdAsString = String(razorpayOrder.id);
+    console.log("orderIdAsString : ",orderIdAsString)
 
     // Prepare payload for MongoDB
     const payload = list_items.map((el) => ({
@@ -151,20 +155,14 @@ export async function OnlinePaymentOrderController(req, res) {
   }
 }
 
-
-
-
-
 // Verify Razorpay payment and update order
 export async function VerifyPaymentController(req, res) {
   try {
     console.log("new payment verification came : ",req.body)
 
-    const { razorpay_payment_id, orderId, razorpay_signature } = req.body;
+    const {  orderId } = req.body; 
 
-    // Validate signature (additional code for signature validation required here)
-
-    console.log("rzp payment id : ",orderId)
+    console.log("payment id : ",orderId)
 
     // Update order details in DB upon successful payment
     const updatedOrder = await OrderModel.updateMany(
@@ -192,8 +190,116 @@ export async function VerifyPaymentController(req, res) {
   }
 }
 
+// cashfree integrations
+Cashfree.XClientId = process.env.CASHFREE_CLIENT_ID
+Cashfree.XClientSecret = process.env.CASHFREE_CLIENT_SECRET
+Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
+
+async function generateCashFreeOrder(customer_details) {
+  try {
+      const response = await Cashfree.PGCreateOrder("2023-08-01", customer_details);
+      console.log("CashFree Order created successfully:", response.data);
+      return response.data; // Return the order data
+  } catch (error) {
+      console.error("cashfree generation function :-\n Error:", error.response?.data?.message || error.message);
+      return {}; // Return an empty object on error
+  }
+}
+
+// cashfree payment initiation
+export async function CashFreeOnlinePaymentInitiatorController(req,res)
+{
+  console.log("\n\nnew payment came via cashFree : ")
+  console.log(req.body)
+  try {
+    const userId = req.userId; // authenticated user ID
+    const { list_items, order_amount, addressId, subTotalAmt,order_id } = req.body;
+
+    console.log("userId created by auth middleware : ",userId)
+
+    // Create a Razorpay order
+    const cashfreeOrder = await generateCashFreeOrder({
+        "order_amount": order_amount ,
+        "order_currency": "INR",
+        "order_id": order_id ,
+        "customer_details": {
+            "customer_id": userId,
+            "customer_phone": "9398141936"
+        },
+        "order_meta": {
+            "return_url": process.env.FRONTEND_URL
+        }
+    })
+
+    console.log(cashfreeOrder)
+
+    const orderIdAsString = cashfreeOrder.payment_session_id;
+    console.log("orderIdAsString : ",orderIdAsString)
+
+    // Prepare payload for MongoDB
+    const payload = list_items?.map((el) => ({
+      userId: userId,
+      orderId: orderIdAsString ,
+      productId: el.productId._id,
+      product_details: {
+        name: el.productId.name,
+        image: el.productId.image,
+        more_details: el.productId.more_details
+      },
+      paymentId: "", // Will update after successful payment
+      payment_status: "PENDING",
+      delivery_address: 'addressId',
+      subTotalAmt: subTotalAmt,
+      totalAmt: order_amount,
+    }));
+
+    console.log("payload to insert into DB : ",payload) 
 
 
+
+    console.log("new payload : ",payload)
+    let generatedOrder = ''
+
+    try
+    {
+      generatedOrder = await OrderModel.insertMany(payload);
+    }
+    catch(err){
+      console.log("problem in insertion at DB")
+      console.log(err)
+
+      return res.status(500).json({
+        message: err.message || 'problem in insertion at DB',
+        error: true,
+        success: false
+      });
+    }
+
+    console.log("generatedOrder : ",generatedOrder)
+    
+
+    ///remove from the cart
+    const removeCartItems = await CartProductModel.deleteMany({ userId : userId })
+    const updateInUser = await UserModel.updateOne({ _id : userId }, { shopping_cart : [] })
+
+    console.log("removeCartItems : ",removeCartItems)
+    console.log("updateInUser : ",updateInUser)
+
+    return res.json({
+      message: "Order initiated",
+      error: false,
+      success: true,
+      orderId: cashfreeOrder.payment_session_id, // Send this to frontend
+      data: generatedOrder
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false
+    });
+  }
+}
 
 
 
@@ -365,6 +471,50 @@ export async function getAllOrdersController(request,response){
   try {
 
       const orderlist = await OrderModel.find().sort({ createdAt : -1 })
+
+      return response.json({
+          message : "orders list",
+          data : orderlist,
+          error : false,
+          success : true
+      })
+  } catch (error) {
+      return response.status(500).json({
+          message : error.message || error,
+          error : true,
+          success : false
+      })
+  }
+}
+function rollupSalesByDate(sales) {
+  return sales.reduce((acc, sale) => {
+    const date = new Date(sale.createdAt);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+
+    // Initialize year, month, and day if not already present
+    if (!acc[year]) acc[year] = {};
+    if (!acc[year][month]) acc[year][month] = {};
+    if (!acc[year][month][day]) acc[year][month][day] = { totalSales: 0, sales: [] };
+
+    // Add current sale's totalAmt to the day's totalSales
+    acc[year][month][day].totalSales += sale.totalAmt;
+
+    // Add the sale to the sales list
+    acc[year][month][day].sales.push(sale);
+
+    return acc;
+  }, {});
+}
+
+
+export async function getAllOrdersStatsController(request,response){
+  try {
+
+      let orderlist = await OrderModel.find( { payment_status : "PAID" } , {product_details:0, _id:0,orderId:0,productId:0,delivery_address:0, invoice_receipt:0,__v:0,payment_status:0,subTotalAmt:0,updatedAt:0}).sort({ createdAt : -1 });
+
+      orderlist = rollupSalesByDate(orderlist);
 
       return response.json({
           message : "orders list",
